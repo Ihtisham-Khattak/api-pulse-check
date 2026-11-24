@@ -91,14 +91,22 @@ export function NewTest({ templateId, fromId }: NewTestProps) {
   /* The step lives in the URL hash (#step-2), so refresh keeps it and the browser's
      Back and Forward buttons move between steps. */
   useEffect(() => {
-    const onHash = () => setStep(stepFromHash(window.location.hash) ?? defaultStep);
-    window.addEventListener('hashchange', onHash);
-    return () => window.removeEventListener('hashchange', onHash);
+    const sync = () => setStep(stepFromHash(window.location.hash) ?? defaultStep);
+    window.addEventListener('popstate', sync);
+    window.addEventListener('hashchange', sync);
+    return () => {
+      window.removeEventListener('popstate', sync);
+      window.removeEventListener('hashchange', sync);
+    };
   }, [defaultStep]);
+
+  // pushState (not location.hash) so Next.js's router keeps its own history entries intact.
+  const stepUrl = (n: StepNo) => `${window.location.pathname}${window.location.search}#step-${n}`;
 
   const goStep = useCallback((n: StepNo) => {
     if (n === step) return;
-    window.location.hash = `step-${n}`;
+    window.history.pushState(null, '', stepUrl(n));
+    setStep(n);
     window.scrollTo({ top: 0 });
   }, [step]);
 
@@ -120,7 +128,8 @@ export function NewTest({ templateId, fromId }: NewTestProps) {
     setSelStepId('');
     setSecretsNote(false);
     setRestoredNote(false);
-    if (window.location.hash) window.location.hash = `step-${defaultStep}`; else setStep(defaultStep);
+    window.history.replaceState(null, '', stepUrl(defaultStep));
+    setStep(defaultStep);
     window.scrollTo({ top: 0 });
     toast('Started over.');
   };

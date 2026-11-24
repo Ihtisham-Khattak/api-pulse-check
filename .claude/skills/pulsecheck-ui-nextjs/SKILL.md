@@ -41,6 +41,14 @@ Result page: verdict banner (PASSED / FAILED / STOPPED with the reason), KPI car
 - Visible focus ring (`--focus-ring`), native `<dialog>` for confirmations, toasts use `role="status"`, secret inputs are `type="password"` with a Show toggle.
 - Warn before heavy tests on non-local targets; `localhost`, `127.0.0.1` and `dummyjson.com` are treated as safe.
 
+## Wizard drafts (state that survives steps and refresh)
+
+- `web/lib/draft.ts` keeps the test being built in `sessionStorage` (this tab only). The form is split into three slices, one per step (`sliceOf`). On a real page refresh only the current step's slice goes back to defaults (`resetStep`); the others keep their data. In-app navigation (leaving and coming back) is not a refresh: `bootId()` (kept on `window`) tells the two apart.
+- **Secrets are never stored:** `stripSecrets` blanks the token, API key and password before saving. After a refresh the UI shows a note asking the user to enter them again.
+- The current step lives in the URL hash (`#step-2`). Change it with `window.history.pushState(null, '', url)` plus `setStep`, never by assigning `location.hash`: Next.js ignores native hash history entries when going Back from another route. Listen to `popstate` to follow the browser's Back and Forward.
+- Do not save before the draft has been restored (`ready` flag), or the defaults would overwrite it.
+- Verify in a real browser: fill all three steps, Back/Next, browser Back/Forward, refresh on step 3 and on step 2, leave to History and come back, Start over.
+
 ## Next.js specifics
 
 - Server logic lives in `app/api/**/route.ts` with `export const runtime = 'nodejs'`. Client components only where state and interaction need them.

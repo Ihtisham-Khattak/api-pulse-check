@@ -4,7 +4,7 @@ import {
   Activity, CircleCheck, CircleX, FileJson, FileText, Gauge, Info, OctagonX, RotateCcw, Timer, TriangleAlert, Zap
 } from 'lucide-react';
 import Link from 'next/link';
-import { fmtDateTime, fmtDur, fmtInt, fmtMs, fmtPct } from '@/lib/format';
+import { doubledSegment, fmtDateTime, fmtDur, fmtInt, fmtMs, fmtPct } from '@/lib/format';
 import type { RunResult, ThresholdResult } from '@/lib/types';
 import { LineChart } from './charts/LineChart';
 import { Kpi, StatusBadge } from './ui';
@@ -63,6 +63,12 @@ export function ResultView({ result }: { result: RunResult }) {
           <ul className="stack-sm" style={{ margin: 0, paddingLeft: 20 }}>
             {meta.problems.map((p) => (<li key={p} className="mono small" style={{ overflowWrap: 'anywhere' }}>{p}</li>))}
           </ul>
+          {meta.problems.some((p) => /HTTP 404/.test(p) && doubledSegment(p)) && (
+            <div className="note warn" style={{ marginTop: 14 }}>
+              <TriangleAlert size={17} aria-hidden="true" />
+              <span>The address above repeats a part of the path (<b className="mono">/{doubledSegment(meta.problems.find((p) => /HTTP 404/.test(p) && doubledSegment(p)) ?? '')}/{doubledSegment(meta.problems.find((p) => /HTTP 404/.test(p) && doubledSegment(p)) ?? '')}</b>). Your Base URL probably already ends with it, so remove it from the request path in step 2.</span>
+            </div>
+          )}
           <div className="note" style={{ marginTop: 14 }}>
             <Info size={17} aria-hidden="true" />
             <span>HTTP 401 or 403 usually means the token or login is wrong. &ldquo;No response&rdquo; means nothing is listening at that address, so use <b>Test connection</b> in step 1. HTTP 404 means the path does not exist on that server.</span>

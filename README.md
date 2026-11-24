@@ -1,33 +1,93 @@
 # PulseCheck ⚡
-### API Performance Testing, in the browser or from the command line
+### API testing made simple for QA engineers: correctness and performance, in the browser
 
 ![k6](https://img.shields.io/badge/k6-Performance_Testing-7D64FF?logo=k6&logoColor=white)
 ![Next.js](https://img.shields.io/badge/Next.js-Web_UI-000000?logo=nextdotjs&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?logo=javascript&logoColor=black)
 ![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-CI%2FCD-2088FF?logo=githubactions&logoColor=white)
+![Contributions](https://img.shields.io/badge/Contributions-welcome-0B5D3B)
 
-**PulseCheck** tests how an API behaves: does it return the right data, and how fast and stable is it under load? It is built on [Grafana k6](https://k6.io/) and has two ways to use it:
+**PulseCheck** lets you test an API without writing a test script. Point it at any address, including a site running on `localhost`. Add your token and your payload, choose how hard to push, press **Run**, and get a clear verdict: *does it return the right data, and how fast and stable is it under load?*
 
-- **The PulseCheck site** (a local web app): pick a test, point it at any API, including one running on `localhost`, add your token and payload, press Run, and read the results.
-- **The command line**: ready-made k6 scripts you can run with `npm run test:*` and in CI.
+It is a friendly web interface on top of [Grafana k6](https://k6.io/), the open-source load-testing engine. You get the power of k6 without having to learn its scripting first, and you can still use plain k6 scripts from the command line and in CI.
+
+> **Everyone is welcome to help.** If you are a software quality assurance engineer, a developer, or just someone who cares about reliable software, see [Join us](#join-us-contribute) at the bottom. This project gets better with every tester who uses it and shares what they learned.
 
 ## Contents
 
-1. [How it works (the basic flow)](#how-it-works-the-basic-flow)
-2. [Requirements](#requirements)
-3. [Run the main site](#run-the-main-site)
-4. [Use the site: test an API endpoint](#use-the-site-test-an-api-endpoint)
-5. [Add an API endpoint](#add-an-api-endpoint)
-6. [Try it end to end with the sample API](#try-it-end-to-end-with-the-sample-api)
-7. [Run from the command line](#run-from-the-command-line)
-8. [Project structure](#project-structure)
-9. [Metrics, thresholds and reports](#metrics-thresholds-and-reports)
-10. [CI/CD](#cicd)
-11. [Troubleshooting](#troubleshooting)
-12. [Safety](#safety)
-13. [Author](#author)
+1. [Why this project exists](#why-this-project-exists)
+2. [Who it is for](#who-it-is-for)
+3. [Features](#features)
+4. [How it works (the basic flow)](#how-it-works-the-basic-flow)
+5. [Requirements](#requirements)
+6. [Run the main site](#run-the-main-site)
+7. [Use the site: test an API endpoint](#use-the-site-test-an-api-endpoint)
+8. [Add an API endpoint](#add-an-api-endpoint)
+9. [Try it end to end with the sample API](#try-it-end-to-end-with-the-sample-api)
+10. [Run from the command line](#run-from-the-command-line)
+11. [Project structure](#project-structure)
+12. [Metrics, thresholds and reports](#metrics-thresholds-and-reports)
+13. [CI/CD](#cicd)
+14. [Troubleshooting](#troubleshooting)
+15. [Safety](#safety)
+16. [Roadmap: what we want to build next](#roadmap-what-we-want-to-build-next)
+17. [Join us (contribute)](#join-us-contribute)
+18. [Status, license and author](#status-license-and-author)
 
 ---
+
+## Why this project exists
+
+Testing an API properly means answering two different questions:
+
+1. **Is it correct?** Does `POST /orders` really return `201`, and is the `qty` in the response the one I sent?
+2. **Is it fast and stable?** What happens with 5, 50 or 500 users at once? Where does it start to slow down or fail?
+
+Good tools exist for both, but the usual path is slow and uneven:
+
+- Performance tools like k6 are excellent, but they need scripting knowledge. Many QA engineers who know exactly *what* to test lose time on *how* to write it.
+- Request tools are friendly, but they are not built for load, thresholds or repeatable reports.
+- Results end up in terminal output or scattered files that are hard to compare or share with a team.
+
+**The aim of PulseCheck** is to remove that friction:
+
+- **Fewer steps from idea to result.** Pick a template or fill in three steps, then run.
+- **One place for correctness and performance.** The same test checks the data your API returns *and* how it behaves under load.
+- **Results anyone can read.** A plain verdict (PASSED or FAILED), the reason, charts, and a history you can compare.
+- **Repeatable and shareable.** Every run is saved with its exact settings, and the same k6 scripts run in CI.
+- **Safe by default.** Secrets never reach disk, heavy tests ask for confirmation, and everything runs on your own computer.
+
+We believe quality engineering is moving toward tools that make good testing the easy path. PulseCheck is our contribution to that, built in the open, so that QA engineers can shape it together.
+
+## Who it is for
+
+- **QA and test automation engineers** who want fast API and performance checks without scripting overhead.
+- **Developers** who want to see how their endpoint behaves before it reaches production.
+- **Teams** that want repeatable tests in CI and results everyone can understand.
+- **Learners** who want to understand performance testing hands-on, with real numbers and clear explanations.
+
+## Features
+
+**In the web site**
+
+- **Ready-made templates** for common checks (smoke, auth, search, POST/PUT/PATCH/DELETE, CRUD workflow) and for load, stress, spike and soak tests.
+- **A three-step builder:** *Target* (address and authentication), *Requests* (what to call, with payloads and checks), *Test type* (how hard to push and what counts as a pass).
+- **Works with localhost.** PulseCheck runs on your computer, so it can test a site you are developing right now. **Test connection** shows what really answers at an address, so you don't test the wrong application by mistake.
+- **Authentication:** none, bearer token, API key, basic, or "log in first" (PulseCheck logs in and reuses the token).
+- **Real payloads and data:** JSON bodies with built-in dynamic values (`{{$randomInt}}`, `{{$uuid}}`, ...), CSV or JSON test data, and values saved from one response and used in the next request.
+- **Checks that verify your data:** status codes, JSON fields, text in the body and response time.
+- **Pass or fail rules** (thresholds) you can edit, such as "p95 below 1000 ms and under 1% errors".
+- **Live runs:** users, requests per second, p95 latency and errors update as the test runs, with a **Stop** button.
+- **Clear results:** a verdict, KPIs, charts, the rules and every check. If requests failed, a **What went wrong** card shows the first errors (for example `HTTP 401` or `connection refused`).
+- **History and comparison:** every run is kept. Compare two runs side by side to see what changed. **Run again** reopens a past run's settings.
+- **Your work is not lost.** Move between the three steps, use the browser's Back button, or refresh the page: your entries stay. (After a refresh, only the step you are on starts fresh. Tokens and passwords are never stored, by design.)
+- **Light and dark themes**, keyboard friendly, and usable on a phone-sized screen.
+
+**On the command line and in CI**
+
+- **Reusable k6 scripts** for smoke, load, stress, spike and soak tests, plus authentication, search and full CRUD workflows.
+- **Per-scenario thresholds**, custom metrics and HTML and JSON reports.
+- **GitHub Actions** workflow that runs the smoke test and uploads the reports.
 
 ## How it works (the basic flow)
 
@@ -87,7 +147,9 @@ npm run ui             # starts the site
 
 Open **http://localhost:3000**. The sidebar shows `k6 <version> ready` when k6 was found.
 
-### Production mode (faster, no hot reload)
+In development mode the page reloads itself whenever a source file changes. If you are only *using* the site, production mode below is calmer.
+
+### Production mode (faster, no automatic reloads)
 
 ```bash
 npm run ui:build       # once, and again after you change the code
@@ -166,8 +228,10 @@ The site only listens on `127.0.0.1`, so other computers on your network cannot 
    You can also set the load shape yourself (fixed users, ramp in stages, or a fixed rate) and the **pass or fail rules**, for example "p95 response time below 1000 ms".
 
 5. Press **Run test**. The live page shows users, requests per second, p95 latency and errors, with a **Stop test** button.
-6. Read the **result**: a PASSED or FAILED verdict, KPIs, charts, the rules, and every check. If requests failed, the **What went wrong** card shows the first failing requests (for example `HTTP 401` or `connection refused`). **HTML report** and **JSON** open the full k6 output.
+6. Read the **result**: a PASSED or FAILED verdict, KPIs, charts, the rules, and every check. If requests failed, the **What went wrong** card shows the first failing requests. **HTML report** and **JSON** open the full k6 output.
 7. **History** keeps every run. Tick two runs and press compare to see what changed. **Run again** reopens a past run's settings (tokens and passwords are never saved, so enter them again).
+
+**Your entries are kept.** Use **Back** and **Next**, or your browser's Back button, to move between the steps without losing anything. If you refresh the page, you stay on the same step; that step starts fresh while the other two keep their data. The draft lives in your browser tab only (it is gone when you close the tab), and **Start over** clears it.
 
 ## Add an API endpoint
 
@@ -319,7 +383,7 @@ Pulse-Check/
 ├── web/                     The PulseCheck site (Next.js, React, TypeScript)
 │   ├── app/                 Pages and the API routes (app/api/...)
 │   ├── components/          Screens and UI parts (wizard/, charts/)
-│   ├── lib/                 Shared logic: templates, presets, validation
+│   ├── lib/                 Shared logic: templates, presets, validation, draft saving
 │   │   └── server/          Server only: starts k6, stores runs
 │   └── public/fonts/        Space Grotesk, Inter, JetBrains Mono
 ├── tests/                   k6 test scripts
@@ -374,7 +438,7 @@ The baseline used by load and soak:
 - HTTP request failure rate below 1%.
 - Check success rate above 95%.
 
-These are starting targets, not universal performance standards.
+These are starting targets, not universal performance standards. Tune them to your own service.
 
 ### Reports
 
@@ -400,6 +464,8 @@ It runs on push, on pull requests, and manually. [View GitHub Actions](https://g
 | `npm run ui` says the port is in use | Use another port: `PORT=4100 npm run ui`. |
 | A test fails and every request failed | Open the result: **What went wrong** shows the first errors. `HTTP 401/403` means the token or login is wrong. `connection refused` means nothing is listening at that address. |
 | You are not sure the address is right | Press **Test connection** in step 1. It reports what answers and which software it identifies as. Ports such as 8080 and 8000 are often used by other programs (for example Jenkins on 8080). |
+| The page reloads by itself while you work | You are in development mode, which reloads when source files change. Use production mode (`npm run ui:build`, then `npm run ui:start`). Your entries are kept either way. |
+| Your token or password is empty after a refresh | By design: secrets are never stored. Enter them again in step 1. |
 | **A test is already running** | Only one test runs at a time. Open the running test from the sidebar and stop it, or wait. |
 | A run says "The server stopped while this test was running" | The site was restarted during a test. Run it again. |
 | Command-line test aborts with `couldn't be retrieved` | The report library could not be downloaded (no internet). Tests started from the site do not have this problem. |
@@ -409,29 +475,104 @@ It runs on push, on pull requests, and manually. [View GitHub Actions](https://g
 ## Safety
 
 - Only run load, stress, spike and soak tests against systems you own or have explicit permission to test. The site asks you to confirm heavy tests against any host that is not `localhost`, `127.0.0.1` or `dummyjson.com`.
-- Tokens, API keys and passwords stay in memory and are passed to k6 privately. They are never written to history, reports, logs or `config.json`.
+- Tokens, API keys and passwords stay in memory and are passed to k6 privately. They are never written to history, reports, logs, `config.json` or the saved draft.
 - The site only listens on your own computer, only runs the built-in runner, and checks every input (address, limits on users, duration and size) before starting k6.
 - Performance profiles are configurable examples, not certified capacity benchmarks.
 
-## Current status
+## Roadmap: what we want to build next
+
+These are ideas, not promises. They are good places to help. Open an issue to discuss before starting on a large one.
+
+**Test design**
+- **Traffic mix:** run several flows at once with weights (for example 70% browsing, 30% checkout).
+- **Import your existing work:** create requests from a cURL command, a Postman collection or an OpenAPI file.
+- **Richer checks:** JSON schema validation, header checks, regular expressions, and comparing a response with a saved baseline.
+- **More authentication flows:** OAuth 2.0, refresh tokens, and signed requests.
+- **Environments:** named environments (dev, staging) with their own address and settings.
+
+**Results and teamwork**
+- **Performance regression detection:** compare each run with a baseline and flag slowdowns automatically.
+- **Export and share:** save a test as a file, share it with the team, and publish a read-only report page.
+- **Notifications:** send a summary to Slack or email when a run fails.
+
+**Automation**
+- **Run saved site tests in CI** so the same test you built in the browser guards every pull request.
+- **Scheduled runs** and trend charts over time.
+- **Configurable CI environments** in GitHub Actions.
+
+**Quality of the project itself**
+- Automated tests for the site (components and API routes), and end-to-end browser tests.
+- Accessibility review and translations.
+- A short video and screenshots for this README.
+
+## Join us (contribute)
+
+**PulseCheck is built for quality assurance engineers, and it is better when QA engineers help build it.** You do not need to be a k6 or Next.js expert. Real testing experience is the most valuable thing you can bring: you know which checks matter, which errors are confusing, and which steps waste time.
+
+You can help in many ways:
+
+| Way to help | Examples |
+|---|---|
+| **Use it and tell us** | Test a real API. Report what was confusing, slow or missing. A clear bug report is a great contribution. |
+| **Share ideas** | Suggest a check, a template or a result view that would make your daily work easier. |
+| **Add templates** | Turn a testing pattern you use often (login flow, pagination, file upload, idempotent POST) into a template. See [Add an API endpoint](#b-save-it-as-a-reusable-template-a-little-code). |
+| **Write code** | Pick something from the [roadmap](#roadmap-what-we-want-to-build-next), or fix a bug. |
+| **Improve the docs** | Fix unclear steps, add examples, translate this README. |
+| **Test the tester** | Try unusual inputs, big payloads and slow APIs, and see whether the tool behaves. |
+| **Design and accessibility** | Improve layouts, wording, keyboard use and screen-reader support. |
+
+### How to contribute
+
+1. **Look first.** Search the existing issues so you do not duplicate someone's idea or report.
+2. **Open an issue** for anything bigger than a small fix: describe what you want and why. For a bug, include the steps, what you expected, what happened, your Node and k6 versions, and the **What went wrong** text if there is one. Never paste real tokens or passwords.
+3. **Fork** the repository and create a branch with a clear name, such as `feature/traffic-mix` or `fix/csv-quotes`.
+4. **Set up** as in [Run the main site](#run-the-main-site) and make your change.
+5. **Check your work** (see below).
+6. **Open a pull request.** Explain what changed and why, and add a screenshot for any visible change. Small, focused pull requests are reviewed fastest.
+
+### Ground rules for changes
+
+- **Never commit secrets.** No real tokens, keys, passwords or private addresses, in code, templates, tests or screenshots.
+- **Keep secrets out of storage.** Tokens and passwords must stay in memory only. They must not reach history, reports, logs, `config.json` or the saved draft.
+- **Be safe by default.** Anything that sends heavy traffic must keep the confirmation for non-local hosts, and every input must stay validated on the server.
+- **Keep it simple.** Prefer small, readable changes. Add a dependency only when it clearly earns its place.
+- **TypeScript in the site:** no `any`, small components, and shared logic in `web/lib/`. Server-only code stays in `web/lib/server/`.
+- **k6 scripts:** follow the rules in [option C](#c-as-a-command-line-k6-test-for-ci) (use `jsonField`, set thresholds, read secrets from the environment).
+- **Accessibility counts:** keyboard use, visible focus, labels on inputs, and status shown with text and an icon, never colour alone.
+- **Be kind.** Be respectful and constructive in issues and reviews. We are all here to make software more reliable.
+
+### Check your work before a pull request
+
+```bash
+cd web && npx tsc --noEmit        # the type check must pass
+npm run ui:build                  # from the project root: the production build must pass
+```
+
+Then open the site and try your change in a real browser: every screen it touches, light and dark theme, and a narrow window. If your change affects running tests, start a real run against the [sample API](#try-it-end-to-end-with-the-sample-api) and confirm the result page. For k6 script changes, run the affected `npm run test:*` commands and confirm exit code `0`.
+
+### Good first contributions
+
+- Add a template for a pattern you test often.
+- Improve an error message that confused you.
+- Add a missing example or fix a typo in this README.
+- Try the site on your own API and report what you found.
+
+**Thank you for helping make quality assurance faster and easier for everyone.**
+
+## Status, license and author
 
 | Component | Status |
 |---|---|
 | Command-line tests, metrics, thresholds, reports | Complete |
 | GitHub Actions CI (smoke test) | Working |
 | Web site: templates, three-step builder, live run, results, history, compare | Working |
-| Traffic mix for scenarios (several flows with weights) | Planned |
-| Configurable CI environments | Planned |
-| Performance regression detection across runs | Planned |
+| Drafts kept across steps and page refreshes | Working |
+| Traffic mix, importers, regression detection, scheduled runs | Planned |
 
-## Author
+**License:** a license has not been chosen yet. Until one is added to the repository, please open an issue to discuss reuse or large contributions.
 
-**Rohan Kumar**
-
-Software Engineer | API Testing | Performance Engineering
-
-GitHub: [@rony-codes](https://github.com/rony-codes)
+**Original author:** Rohan Kumar, Software Engineer | API Testing | Performance Engineering. GitHub: [@rony-codes](https://github.com/rony-codes)
 
 ---
 
-*PulseCheck — Measure. Analyze. Improve.*
+*PulseCheck: Measure. Analyze. Improve.*

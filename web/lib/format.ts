@@ -113,3 +113,27 @@ export function isHeavy(config: RunConfig): boolean {
   const est = estimateRun(config);
   return est.peakVus > 20 || est.approxRequests > 5000;
 }
+
+/**
+ * Detects the common mistake of repeating part of the base URL in the request path,
+ * for example base "https://api.test/organization" with path "/organization/invitations",
+ * which would call ".../organization/organization/invitations".
+ * Returns the repeated part, or null when there is no problem.
+ */
+export function repeatedBasePath(baseUrl: string, path: string): string | null {
+  let basePath: string;
+  try {
+    basePath = new URL(baseUrl.trim()).pathname.replace(/\/+$/, '');
+  } catch {
+    return null;
+  }
+  if (!basePath) return null;
+  const p = path.trim();
+  return p === basePath || p.startsWith(basePath + '/') || p.startsWith(basePath + '?') ? basePath : null;
+}
+
+/** Finds a doubled path segment such as "/organization/organization/" in a full URL. */
+export function doubledSegment(url: string): string | null {
+  const m = /\/([^/?#]+)\/\1(?=[/?#]|$)/.exec(url.replace(/^https?:\/\/[^/]+/, ''));
+  return m ? m[1] : null;
+}

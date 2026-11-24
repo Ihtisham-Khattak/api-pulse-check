@@ -1,10 +1,11 @@
 'use client';
 
 import {
-  ArrowDown, ArrowUp, Braces, CircleCheck, CircleX, Copy, Database, ListChecks, Plus, Save, Trash2, Variable, Wand2
+  ArrowDown, ArrowUp, Braces, CircleCheck, CircleX, Copy, Database, ListChecks, Plus, Save, Trash2, TriangleAlert, Variable, Wand2
 } from 'lucide-react';
 import { useMemo, useRef } from 'react';
 import { newStep, parseDataText, uid, type StepForm } from '@/lib/form';
+import { repeatedBasePath } from '@/lib/format';
 import { METHODS } from '@/lib/validate';
 import type { CheckType, DataMode, Method } from '@/lib/types';
 import { IconBadge } from '../ui';
@@ -149,6 +150,20 @@ export function RequestsStep({ form, setForm, selId, setSelId }: StepProps & { s
                 </label>
               </div>
               <p className="hint mono" style={{ marginTop: -6, overflowWrap: 'anywhere' }}>{sel.method} {form.baseUrl.replace(/\/+$/, '')}{sel.path}</p>
+              {repeatedBasePath(form.baseUrl, sel.path) && (
+                <div className="note warn" role="alert">
+                  <TriangleAlert size={17} aria-hidden="true" />
+                  <div className="stack-sm">
+                    <span>Your Base URL already ends with <b className="mono">{repeatedBasePath(form.baseUrl, sel.path)}</b>, and the path starts with it too. The request would go to <span className="mono" style={{ overflowWrap: 'anywhere' }}>{form.baseUrl.replace(/\/+$/, '')}{sel.path}</span>, which usually does not exist (HTTP 404).</span>
+                    <div>
+                      <button type="button" className="btn sm" onClick={() => {
+                        const rest = sel.path.trim().slice((repeatedBasePath(form.baseUrl, sel.path) ?? '').length);
+                        patch(sel.id, { path: rest.startsWith('/') ? rest : '/' + rest });
+                      }}>Remove the repeated part from the path</button>
+                    </div>
+                  </div>
+                </div>
+              )}
 
               {form.auth.type !== 'none' && (
                 <label className="check-row"><input type="checkbox" checked={sel.useAuth} onChange={(e) => patch(sel.id, { useAuth: e.target.checked })} /> Send authentication with this request</label>
