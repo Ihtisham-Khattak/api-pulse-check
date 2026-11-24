@@ -103,7 +103,8 @@ function drain(run: ActiveRun, pointsFile: string): void {
     const lines = (run.partial + buf.toString('utf8')).split('\n');
     run.partial = lines.pop() ?? '';
     for (const line of lines) {
-      if (!line.startsWith('{"type":"Point"')) continue;
+      // k6 2.x writes {"metric":...,"type":"Point",...}; older versions put "type" first. Accept both.
+      if (!line.includes('"type":"Point"')) continue;
       let o: { metric: string; data: { value: number } };
       try { o = JSON.parse(line); } catch { continue; }
       const v = o.data.value;

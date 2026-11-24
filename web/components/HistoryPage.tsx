@@ -69,7 +69,10 @@ export function HistoryPage() {
   useEffect(() => { load(); }, [load]);
 
   const visible = useMemo(() => (runs ?? []).filter((r) => filter === 'all' || r.status === filter), [runs, filter]);
-  const compare = picked.length === 2 ? picked.map((id) => runs?.find((r) => r.id === id)) : [];
+  // The older run is always A (the baseline), so "change from A to B" reads forward in time.
+  const compare = picked.length === 2
+    ? picked.map((id) => runs?.find((r) => r.id === id)).sort((x, y) => (x?.startedAt ?? 0) - (y?.startedAt ?? 0))
+    : [];
 
   const toggle = (id: string) => setPicked((p) => (p.includes(id) ? p.filter((x) => x !== id) : [...p.slice(-1), id]));
 

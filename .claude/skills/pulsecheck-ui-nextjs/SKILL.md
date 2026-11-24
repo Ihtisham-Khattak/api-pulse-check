@@ -29,7 +29,7 @@ The 12 built-in DummyJSON tests are **templates**: clicking one pre-fills the th
 
 Result page: verdict banner (PASSED / FAILED / STOPPED with the reason), KPI cards (requests, error rate, avg, p90, p95, p99), latency chart with the p95 limit as a dashed line, thresholds table, checks table with pass rate.
 
-## Design rules (brand: the "Ihtisham Khattak" design system)
+## Design rules (the brand design system: green, white and black)
 
 - **Palette:** green, white and black in a 60/30/10 balance. Tokens: `forest #0B5D3B` (primary), `emerald #0D7D4D`, `mint #3DDC84` (accent, 10%), `mint-tint #E7F6EE`, `black #0A0F0C`, `surface-alt #F6F8F7`, `ink-muted #56615B`, `line #DCE3DF`, `danger #C62828`, `warning #A15C00`. Dark theme: surface `#0A0F0C`, surface-alt `#161D19`, ink `#F2F5F3`, primary becomes mint. All defined in `app/globals.css`; components use the variables only.
 - **Never** put mint text on white or white text on mint. Success text is forest on mint-tint. No gradients, no emoji cards, no left-border cards. Prefer a 1px `line` border to shadows.

@@ -1,11 +1,29 @@
-# PulseCheck ⚡
-### API testing made simple for QA engineers: correctness and performance, in the browser
+<p align="center">
+  <img src="docs/images/banner.svg" alt="PulseCheck: API testing for QA engineers, in your browser" width="100%">
+</p>
 
-![k6](https://img.shields.io/badge/k6-Performance_Testing-7D64FF?logo=k6&logoColor=white)
-![Next.js](https://img.shields.io/badge/Next.js-Web_UI-000000?logo=nextdotjs&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?logo=javascript&logoColor=black)
-![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-CI%2FCD-2088FF?logo=githubactions&logoColor=white)
-![Contributions](https://img.shields.io/badge/Contributions-welcome-0B5D3B)
+<p align="center">
+  <img alt="k6" src="https://img.shields.io/badge/k6-Performance_Testing-7D64FF?logo=k6&logoColor=white">
+  <img alt="Next.js" src="https://img.shields.io/badge/Next.js-Web_UI-000000?logo=nextdotjs&logoColor=white">
+  <img alt="JavaScript" src="https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?logo=javascript&logoColor=black">
+  <img alt="GitHub Actions" src="https://img.shields.io/badge/GitHub_Actions-CI%2FCD-2088FF?logo=githubactions&logoColor=white">
+  <img alt="Contributions welcome" src="https://img.shields.io/badge/Contributions-welcome-0B5D3B">
+</p>
+
+<h3 align="center">Test any API without writing a script.<br>See if it returns the right data, and how it behaves under load.</h3>
+
+<p align="center">
+  <a href="#run-the-main-site"><b>Quick start</b></a> &nbsp;·&nbsp;
+  <a href="#see-it-in-action"><b>See it in action</b></a> &nbsp;·&nbsp;
+  <a href="#join-us-contribute"><b>Contribute</b></a> &nbsp;·&nbsp;
+  <a href="#roadmap-what-we-want-to-build-next"><b>Roadmap</b></a>
+</p>
+
+<p align="center">
+  <img src="docs/videos/demo.gif" alt="A 50 second tour: build a test for a local API, run it, and read the result" width="900">
+  <br>
+  <sub>▶ Full-quality video: <a href="docs/videos/demo.mp4">demo.mp4</a></sub>
+</p>
 
 **PulseCheck** lets you test an API without writing a test script. Point it at any address, including a site running on `localhost`. Add your token and your payload, choose how hard to push, press **Run**, and get a clear verdict: *does it return the right data, and how fast and stable is it under load?*
 
@@ -18,21 +36,22 @@ It is a friendly web interface on top of [Grafana k6](https://k6.io/), the open-
 1. [Why this project exists](#why-this-project-exists)
 2. [Who it is for](#who-it-is-for)
 3. [Features](#features)
-4. [How it works (the basic flow)](#how-it-works-the-basic-flow)
-5. [Requirements](#requirements)
-6. [Run the main site](#run-the-main-site)
-7. [Use the site: test an API endpoint](#use-the-site-test-an-api-endpoint)
-8. [Add an API endpoint](#add-an-api-endpoint)
-9. [Try it end to end with the sample API](#try-it-end-to-end-with-the-sample-api)
-10. [Run from the command line](#run-from-the-command-line)
-11. [Project structure](#project-structure)
-12. [Metrics, thresholds and reports](#metrics-thresholds-and-reports)
-13. [CI/CD](#cicd)
-14. [Troubleshooting](#troubleshooting)
-15. [Safety](#safety)
-16. [Roadmap: what we want to build next](#roadmap-what-we-want-to-build-next)
-17. [Join us (contribute)](#join-us-contribute)
-18. [Status, license and author](#status-license-and-author)
+4. [See it in action](#see-it-in-action)
+5. [How it works (the basic flow)](#how-it-works-the-basic-flow)
+6. [Requirements](#requirements)
+7. [Run the main site](#run-the-main-site)
+8. [Use the site: test an API endpoint](#use-the-site-test-an-api-endpoint)
+9. [Add an API endpoint](#add-an-api-endpoint)
+10. [Try it end to end with the sample API](#try-it-end-to-end-with-the-sample-api)
+11. [Run from the command line](#run-from-the-command-line)
+12. [Project structure](#project-structure)
+13. [Metrics, thresholds and reports](#metrics-thresholds-and-reports)
+14. [CI/CD](#cicd)
+15. [Troubleshooting](#troubleshooting)
+16. [Safety](#safety)
+17. [Roadmap: what we want to build next](#roadmap-what-we-want-to-build-next)
+18. [Join us (contribute)](#join-us-contribute)
+19. [Status, license and author](#status-license-and-author)
 
 ---
 
@@ -59,6 +78,10 @@ Good tools exist for both, but the usual path is slow and uneven:
 
 We believe quality engineering is moving toward tools that make good testing the easy path. PulseCheck is our contribution to that, built in the open, so that QA engineers can shape it together.
 
+<p align="center">
+  <img src="docs/images/why.svg" alt="The usual way versus PulseCheck: scripting first, two separate tools and buried results, against three steps, one test and a clear verdict" width="100%">
+</p>
+
 ## Who it is for
 
 - **QA and test automation engineers** who want fast API and performance checks without scripting overhead.
@@ -67,6 +90,14 @@ We believe quality engineering is moving toward tools that make good testing the
 - **Learners** who want to understand performance testing hands-on, with real numbers and clear explanations.
 
 ## Features
+
+<p align="center">
+  <img src="docs/images/features.svg" alt="Eight features: localhost, real payloads, checks, live results, history, kept drafts, private secrets and CI scripts" width="100%">
+</p>
+
+<p align="center">
+  <img src="docs/images/three-steps.svg" alt="Three steps: Target, Requests, Test type, then the result" width="100%">
+</p>
 
 **In the web site**
 
@@ -89,7 +120,95 @@ We believe quality engineering is moving toward tools that make good testing the
 - **Per-scenario thresholds**, custom metrics and HTML and JSON reports.
 - **GitHub Actions** workflow that runs the smoke test and uploads the reports.
 
+## See it in action
+
+Everything below is real: these screenshots and videos were recorded from PulseCheck testing the [sample API](#try-it-end-to-end-with-the-sample-api) included in this repo.
+
+### Start from a template, or build your own
+
+<p align="center">
+  <img src="docs/images/screenshots/templates.png" alt="The home page: twelve ready-made templates in three groups" width="100%">
+</p>
+
+### Build a test in three steps
+
+<details>
+<summary><b>Show the three builder screens</b> (Target, Requests, Test type)</summary>
+<br>
+
+**1. Target.** Type the address, check it with **Test connection**, and choose how your API authenticates.
+
+<img src="docs/images/screenshots/builder-target.png" alt="Step 1: the address field with a green Test connection result" width="100%">
+
+**2. Requests.** Method, path, payload and checks. Save values from one response to use in the next request.
+
+<img src="docs/images/screenshots/builder-requests.png" alt="Step 2: a POST request with a JSON payload and three checks" width="100%">
+
+**3. Test type.** Pick smoke, load, stress, spike or soak, and edit the load and the pass or fail rules.
+
+<img src="docs/images/screenshots/builder-type.png" alt="Step 3: test type cards, the planned load chart and the pass or fail rules" width="100%">
+
+</details>
+
+<p align="center">
+  <img src="docs/images/test-types.svg" alt="Smoke, load, stress, spike and soak tests, the load shape of each and the question each one answers" width="100%">
+</p>
+
+### Watch it run
+
+<p align="center">
+  <img src="docs/images/screenshots/live-run.png" alt="A test in progress: users, requests per second, p95 latency and live charts" width="100%">
+</p>
+
+### Read the result
+
+<p align="center">
+  <img src="docs/images/screenshots/result-passed.png" alt="A passed result with KPIs, charts, rules and checks" width="100%">
+</p>
+
+### When something fails, PulseCheck tells you why
+
+A wrong or expired token, a path that does not exist, a rule that was missed: every failure comes with the reason, not just a red badge.
+
+<p align="center">
+  <img src="docs/videos/wrong-token.gif" alt="A run fails because of an expired token and the result explains the HTTP 401" width="900">
+  <br><sub>▶ <a href="docs/videos/wrong-token.mp4">wrong-token.mp4</a></sub>
+</p>
+
+<p align="center">
+  <img src="docs/images/screenshots/result-failed-401.png" alt="A failed result with a What went wrong card showing HTTP 401 for each request" width="100%">
+</p>
+
+A run can also fail because the API is simply too slow. The dashed red line is the rule (p95 under 100 ms); the orange line crossed it.
+
+<p align="center">
+  <img src="docs/images/screenshots/result-failed-rule.png" alt="A failed result where the p95 line crosses the red threshold line" width="100%">
+</p>
+
+### Compare runs
+
+<p align="center">
+  <img src="docs/images/screenshots/history-compare.png" alt="History with two runs selected and a side by side comparison" width="100%">
+</p>
+
+### Dark theme and small screens
+
+<p align="center">
+  <img src="docs/images/screenshots/result-dark.png" alt="The result page in the dark theme" width="100%">
+</p>
+
+<p align="center">
+  <img src="docs/images/screenshots/mobile.png" alt="The home page and a result on a phone-sized screen" width="520">
+</p>
+
 ## How it works (the basic flow)
+
+<p align="center">
+  <img src="docs/images/how-it-works.svg" alt="How PulseCheck works: your browser, the PulseCheck site, k6 and your API, with results saved on your computer" width="100%">
+</p>
+
+<details>
+<summary>The same flow as text</summary>
 
 ```text
   You (browser)
@@ -114,6 +233,8 @@ We believe quality engineering is moving toward tools that make good testing the
       ▼
   Result page + History     6. verdict, KPIs, charts, rules, checks, compare runs
 ```
+
+</details>
 
 In short: **the browser only collects settings and shows results. k6 does the real testing on your machine.** That is why `localhost` addresses work: k6 and your site are on the same computer.
 
@@ -232,6 +353,11 @@ The site only listens on `127.0.0.1`, so other computers on your network cannot 
 7. **History** keeps every run. Tick two runs and press compare to see what changed. **Run again** reopens a past run's settings (tokens and passwords are never saved, so enter them again).
 
 **Your entries are kept.** Use **Back** and **Next**, or your browser's Back button, to move between the steps without losing anything. If you refresh the page, you stay on the same step; that step starts fresh while the other two keep their data. The draft lives in your browser tab only (it is gone when you close the tab), and **Start over** clears it.
+
+<p align="center">
+  <img src="docs/videos/keeps-your-work.gif" alt="Moving back and forth between steps, then refreshing: only the current step starts fresh" width="900">
+  <br><sub>▶ <a href="docs/videos/keeps-your-work.mp4">keeps-your-work.mp4</a></sub>
+</p>
 
 ## Add an API endpoint
 
@@ -395,6 +521,7 @@ Pulse-Check/
 ├── data/                    test-data.json for the command-line tests
 ├── examples/sample-api.mjs  A small API to practise on
 ├── reports/                 Results (git-ignored). Site runs are in reports/runs/<id>/
+├── docs/                    README images, infographics and demo videos
 ├── ui/                      Static design preview of the site (visual reference only)
 ├── .github/workflows/       performance.yml (CI)
 └── package.json             Scripts: test:*, ui, ui:install, ui:build, ui:start
@@ -481,6 +608,10 @@ It runs on push, on pull requests, and manually. [View GitHub Actions](https://g
 
 ## Roadmap: what we want to build next
 
+<p align="center">
+  <img src="docs/images/roadmap.svg" alt="Roadmap: working today, next up and later" width="100%">
+</p>
+
 These are ideas, not promises. They are good places to help. Open an issue to discuss before starting on a large one.
 
 **Test design**
@@ -506,6 +637,10 @@ These are ideas, not promises. They are good places to help. Open an issue to di
 - A short video and screenshots for this README.
 
 ## Join us (contribute)
+
+<p align="center">
+  <img src="docs/images/contribute.svg" alt="Built for QA engineers, with QA engineers: use it and report back, add a template, write code, improve the docs" width="100%">
+</p>
 
 **PulseCheck is built for quality assurance engineers, and it is better when QA engineers help build it.** You do not need to be a k6 or Next.js expert. Real testing experience is the most valuable thing you can bring: you know which checks matter, which errors are confusing, and which steps waste time.
 

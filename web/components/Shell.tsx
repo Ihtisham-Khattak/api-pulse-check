@@ -19,15 +19,17 @@ export function Shell({ children }: { children: ReactNode }) {
   const [offline, setOffline] = useState(false);
   const [dark, setDark] = useState(false);
 
+  // Check often while a test is running so the "A test is running" notice clears right after it ends.
+  const testActive = health?.activeRunId != null;
   useEffect(() => {
     let alive = true;
     const poll = () => {
       api.health().then((h) => { if (alive) { setHealth(h); setOffline(false); } }).catch(() => { if (alive) setOffline(true); });
     };
     poll();
-    const timer = window.setInterval(poll, 5000);
+    const timer = window.setInterval(poll, testActive ? 1000 : 5000);
     return () => { alive = false; window.clearInterval(timer); };
-  }, []);
+  }, [testActive]);
 
   useEffect(() => {
     const attr = document.documentElement.dataset.theme;
