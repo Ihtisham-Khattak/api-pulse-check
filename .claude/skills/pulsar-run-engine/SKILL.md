@@ -1,9 +1,9 @@
 ---
-name: pulsecheck-run-engine
-description: Design rules for the PulseCheck backend that starts k6 from the web UI (Next.js route handlers): safe process spawning, the run config JSON, secrets handling, live progress, result storage and history. Use when building or changing anything server-side that runs k6, stores runs, or accepts a base URL, token or payload from the UI.
+name: pulsar-run-engine
+description: Design rules for the Pulsar backend that starts k6 from the web UI (Next.js route handlers): safe process spawning, the run config JSON, secrets handling, live progress, result storage and history. Use when building or changing anything server-side that runs k6, stores runs, or accepts a base URL, token or payload from the UI.
 ---
 
-# PulseCheck run engine (server side)
+# Pulsar run engine (server side)
 
 Status: **planned**, not built yet. The browser cannot run k6. A server on the user's machine starts `k6 run` as a child process and reports back. Because k6 runs on the same machine, `http://localhost:PORT` targets work, with no CORS concern.
 
@@ -43,7 +43,7 @@ Delete runs by removing the folder. Add `reports/runs/` to `.gitignore` (already
 
 ## The run config (UI to k6)
 
-Every UI setting becomes one JSON object consumed by a **generic k6 script** (planned, e.g. `tests/generic-runner.js`, reading `__ENV.PC_CONFIG`). Shape (see the "What PulseCheck hands to k6" panel in the UI preview):
+Every UI setting becomes one JSON object consumed by a **generic k6 script** (planned, e.g. `tests/generic-runner.js`, reading `__ENV.PC_CONFIG`). Shape (see the "What Pulsar hands to k6" panel in the UI preview):
 
 ```json
 {

@@ -1,8 +1,8 @@
 import path from 'node:path';
 
 // The web app lives in <project>/web, the k6 scripts and reports one level up.
-// Set PULSECHECK_ROOT to override when the app is started from somewhere else.
-export const PROJECT_ROOT = path.resolve(process.env.PULSECHECK_ROOT || path.join(/* turbopackIgnore: true */ process.cwd(), '..'));
+// Set PULSAR_ROOT to override when the app is started from somewhere else.
+export const PROJECT_ROOT = path.resolve(process.env.PULSAR_ROOT || path.join(/* turbopackIgnore: true */ process.cwd(), '..'));
 export const RUNS_DIR = path.join(PROJECT_ROOT, 'reports', 'runs');
 export const RUNNER_SCRIPT = path.join(PROJECT_ROOT, 'tests', 'generic-runner.js');
 

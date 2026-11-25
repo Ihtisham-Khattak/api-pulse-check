@@ -10,7 +10,7 @@ export function generateReport(data, testName) {
 
     return {
         [htmlPath]: htmlReport(data, {
-            title: `PulseCheck - ${testName} Report`
+            title: `Pulsar - ${testName} Report`
         }),
 
         [jsonPath]: JSON.stringify(data, null, 2),

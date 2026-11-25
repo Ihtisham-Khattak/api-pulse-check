@@ -1,4 +1,4 @@
-// Generic, config-driven k6 test. The PulseCheck web UI writes a JSON config
+// Generic, config-driven k6 test. The Pulsar web UI writes a JSON config
 // (no secrets) and passes its path in PC_CONFIG_FILE. Secrets (tokens, API keys,
 // passwords) arrive separately in the PC_SECRETS environment variable.
 //
@@ -15,7 +15,7 @@ const cfg = JSON.parse(open(__ENV.PC_CONFIG_FILE));
 const secrets = JSON.parse(__ENV.PC_SECRETS || '{}');
 const baseUrl = String(cfg.baseUrl).replace(/\/+$/, '');
 
-const rows = new SharedArray('pulsecheck-data', function () {
+const rows = new SharedArray('pulsar-data', function () {
     return (cfg.data && cfg.data.rows) || [];
 });
 
@@ -136,7 +136,7 @@ function reportProblem(step, method, url, res) {
     const what = res.status === 0
         ? 'no response (' + String(res.error || 'connection failed').slice(0, 160) + ')'
         : 'HTTP ' + res.status + ' ' + String(res.body || '').slice(0, 140).replace(/\s+/g, ' ');
-    console.warn('[PulseCheck] ' + step.name + ': ' + method + ' ' + url + ' -> ' + what);
+    console.warn('[Pulsar] ' + step.name + ': ' + method + ' ' + url + ' -> ' + what);
 }
 
 /* ---------------- lifecycle ---------------- */

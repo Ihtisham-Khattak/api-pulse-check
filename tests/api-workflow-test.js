@@ -25,7 +25,7 @@ export default function () {
     });
 
     const postPayload = {
-        title: 'PulseCheck Test Product',
+        title: 'Pulsar Test Product',
         price: 99,
         category: 'software'
     };
@@ -40,7 +40,7 @@ export default function () {
     });
 
     const putPayload = {
-        title: 'PulseCheck Updated Product',
+        title: 'Pulsar Updated Product',
         price: 149
     };
 
@@ -55,7 +55,7 @@ export default function () {
 
     const patchResponse = patch(
         `${baseUrl}/products/1`,
-        { title: 'PulseCheck Patched Product' }
+        { title: 'Pulsar Patched Product' }
     );
 
     check(patchResponse, {

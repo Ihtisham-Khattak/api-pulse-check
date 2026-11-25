@@ -5,7 +5,7 @@ import { Shell } from '@/components/Shell';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: { default: 'PulseCheck', template: '%s · PulseCheck' },
+  title: { default: 'Pulsar', template: '%s · Pulsar' },
   description: 'Run API performance tests with k6 and read the results in one place.'
 };
 

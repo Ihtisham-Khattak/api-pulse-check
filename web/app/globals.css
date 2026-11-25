@@ -1,4 +1,4 @@
-/* PulseCheck UI. Tokens follow the brand design system:
+/* Pulsar UI. Tokens follow the brand design system:
    green, white and black in a 60/30/10 balance, Space Grotesk + Inter + JetBrains Mono,
    modest radii (4 / 8 / 16), 1px line borders in place of shadows, no gradients.
    Mint is never used as text on white, and white is never used as text on mint. */
@@ -194,7 +194,8 @@ a:hover { text-decoration: underline; }
 }
 .brand { display: flex; align-items: center; gap: 12px; padding: 0 8px; font: 700 18px/22px var(--display); letter-spacing: -0.01em; color: var(--sb-strong); }
 .brand:hover { text-decoration: none; }
-.brand-mark { width: 36px; height: 36px; border-radius: 8px; background: var(--forest); display: grid; place-items: center; color: #fff; flex: none; }
+.brand-mark { width: 36px; height: 36px; display: grid; place-items: center; flex: none; }
+.brand-mark img { display: block; width: 36px; height: 36px; }
 .brand small { display: block; margin-top: 2px; font: 600 10.5px/14px var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--sb-text); }
 .nav { display: flex; flex-direction: column; gap: 4px; }
 .nav a { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: var(--radius); color: var(--sb-text); font: 600 14px/20px var(--sans); }

@@ -23,7 +23,7 @@ export default function HomePage() {
         </svg>
         <div className="eyebrow"><Flame size={14} aria-hidden="true" /> Powered by k6</div>
         <h1 id="hero-h">Know how your API behaves under pressure</h1>
-        <p>Point PulseCheck at any API, including one running on localhost. Pick a test type, send real requests with your own data and token, and read clear results in seconds.</p>
+        <p>Point Pulsar at any API, including one running on localhost. Pick a test type, send real requests with your own data and token, and read clear results in seconds.</p>
         <div className="row" style={{ marginTop: 22 }}>
           <Link href="/new" className="btn light"><Rocket size={17} aria-hidden="true" /> New test</Link>
           <Link href="/history" className="btn outline"><History size={17} aria-hidden="true" /> View history</Link>

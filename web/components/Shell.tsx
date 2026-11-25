@@ -49,11 +49,12 @@ export function Shell({ children }: { children: ReactNode }) {
   return (
     <div className="shell">
       <aside className="sidebar">
-        <Link href="/" className="brand" aria-label="PulseCheck home">
+        <Link href="/" className="brand" aria-label="Pulsar home">
           <span className="brand-mark" aria-hidden="true">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M2 13h4l2.6-7 4.2 12 2.6-5H22" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" /></svg>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logo-mark.svg" width={36} height={36} alt="" />
           </span>
-          <span>PulseCheck<small>Performance testing</small></span>
+          <span>Pulsar<small>Performance testing</small></span>
         </Link>
 
         <nav className="nav" aria-label="Main">

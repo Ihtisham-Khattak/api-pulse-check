@@ -113,7 +113,7 @@ export function RunPage({ id }: { id: string }) {
       });
       es.onerror = () => {
         // The browser retries on its own. If the server is gone for good we stop after a while.
-        window.setTimeout(() => { if (alive && es && es.readyState === EventSource.CLOSED) setError('Lost the connection to the PulseCheck server.'); }, 4000);
+        window.setTimeout(() => { if (alive && es && es.readyState === EventSource.CLOSED) setError('Lost the connection to the Pulsar server.'); }, 4000);
       };
     };
 

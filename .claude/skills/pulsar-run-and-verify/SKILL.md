@@ -1,16 +1,16 @@
 ---
-name: pulsecheck-run-and-verify
-description: How to run PulseCheck k6 tests locally, read their results, and verify a change works. Use when asked to run or start the project, run a specific test, check results, or confirm a change did not break anything.
+name: pulsar-run-and-verify
+description: How to run Pulsar k6 tests locally, read their results, and verify a change works. Use when asked to run or start the project, run a specific test, check results, or confirm a change did not break anything.
 ---
 
-# Running and verifying PulseCheck
+# Running and verifying Pulsar
 
 k6 is a system binary (already installed at `/usr/bin/k6` on this machine). Node and npm are only used for the `npm run` shortcuts: there is no `npm install` step.
 
 ## Run a test
 
 ```bash
-cd /media/peregrine/dc9e13b9-21f1-46ce-89f8-90d9cac056f31/Pulse-Check-main
+cd /media/peregrine/dc9e13b9-21f1-46ce-89f8-90d9cac056f31/API-Pulse-Check
 npm run test:smoke                       # or: k6 run tests/smoke-test.js
 BASE_URL="http://localhost:8080" npm run test:smoke      # another target
 k6 run -e AUTH_USERNAME=u -e AUTH_PASSWORD=p tests/auth-test.js

@@ -1,11 +1,11 @@
 ---
-name: pulsecheck-k6-tests
-description: Conventions for writing, changing or adding k6 test scripts in PulseCheck (tests/, utils/, config/, data/). Use whenever a k6 test, threshold profile, shared helper or test-data file is created or edited.
+name: pulsar-k6-tests
+description: Conventions for writing, changing or adding k6 test scripts in Pulsar (tests/, utils/, config/, data/). Use whenever a k6 test, threshold profile, shared helper or test-data file is created or edited.
 ---
 
-# Writing PulseCheck k6 tests
+# Writing Pulsar k6 tests
 
-PulseCheck is a k6 (JavaScript, ES modules) API performance framework. Tests live in `tests/`, shared code in `utils/`, settings in `config/`, inputs in `data/`. There are no npm dependencies: do not add any to run the tests.
+Pulsar is a k6 (JavaScript, ES modules) API performance framework. Tests live in `tests/`, shared code in `utils/`, settings in `config/`, inputs in `data/`. There are no npm dependencies: do not add any to run the tests.
 
 ## Anatomy of a test
 
@@ -64,5 +64,5 @@ Rules:
 1. Create `tests/<name>-test.js` following the anatomy above.
 2. Add an `npm run test:<name>` script to `package.json`.
 3. Add a row to the scenario table in `README.md`.
-4. Run it (see the `pulsecheck-run-and-verify` skill) and confirm exit code 0 and a report in `reports/`.
+4. Run it (see the `pulsar-run-and-verify` skill) and confirm exit code 0 and a report in `reports/`.
 5. If the UI manifest exists (`config/tests.manifest.json`), add the test there too.

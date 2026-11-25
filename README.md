@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/images/banner.svg" alt="PulseCheck: API testing for QA engineers, in your browser" width="100%">
+  <img src="docs/images/banner.svg" alt="Pulsar: API testing for QA engineers, in your browser" width="100%">
 </p>
 
 <p align="center">
@@ -25,7 +25,7 @@
   <sub>▶ Full-quality video: <a href="docs/videos/demo.mp4">demo.mp4</a></sub>
 </p>
 
-**PulseCheck** lets you test an API without writing a test script. Point it at any address, including a site running on `localhost`. Add your token and your payload, choose how hard to push, press **Run**, and get a clear verdict: *does it return the right data, and how fast and stable is it under load?*
+**Pulsar** lets you test an API without writing a test script. Point it at any address, including a site running on `localhost`. Add your token and your payload, choose how hard to push, press **Run**, and get a clear verdict: *does it return the right data, and how fast and stable is it under load?*
 
 It is a friendly web interface on top of [Grafana k6](https://k6.io/), the open-source load-testing engine. You get the power of k6 without having to learn its scripting first, and you can still use plain k6 scripts from the command line and in CI.
 
@@ -51,7 +51,7 @@ It is a friendly web interface on top of [Grafana k6](https://k6.io/), the open-
 16. [Safety](#safety)
 17. [Roadmap: what we want to build next](#roadmap-what-we-want-to-build-next)
 18. [Join us (contribute)](#join-us-contribute)
-19. [Status, license and author](#status-license-and-author)
+19. [Status and license](#status-and-license)
 
 ---
 
@@ -68,7 +68,7 @@ Good tools exist for both, but the usual path is slow and uneven:
 - Request tools are friendly, but they are not built for load, thresholds or repeatable reports.
 - Results end up in terminal output or scattered files that are hard to compare or share with a team.
 
-**The aim of PulseCheck** is to remove that friction:
+**The aim of Pulsar** is to remove that friction:
 
 - **Fewer steps from idea to result.** Pick a template or fill in three steps, then run.
 - **One place for correctness and performance.** The same test checks the data your API returns *and* how it behaves under load.
@@ -76,10 +76,10 @@ Good tools exist for both, but the usual path is slow and uneven:
 - **Repeatable and shareable.** Every run is saved with its exact settings, and the same k6 scripts run in CI.
 - **Safe by default.** Secrets never reach disk, heavy tests ask for confirmation, and everything runs on your own computer.
 
-We believe quality engineering is moving toward tools that make good testing the easy path. PulseCheck is our contribution to that, built in the open, so that QA engineers can shape it together.
+We believe quality engineering is moving toward tools that make good testing the easy path. Pulsar is our contribution to that, built in the open, so that QA engineers can shape it together.
 
 <p align="center">
-  <img src="docs/images/why.svg" alt="The usual way versus PulseCheck: scripting first, two separate tools and buried results, against three steps, one test and a clear verdict" width="100%">
+  <img src="docs/images/why.svg" alt="The usual way versus Pulsar: scripting first, two separate tools and buried results, against three steps, one test and a clear verdict" width="100%">
 </p>
 
 ## Who it is for
@@ -103,8 +103,8 @@ We believe quality engineering is moving toward tools that make good testing the
 
 - **Ready-made templates** for common checks (smoke, auth, search, POST/PUT/PATCH/DELETE, CRUD workflow) and for load, stress, spike and soak tests.
 - **A three-step builder:** *Target* (address and authentication), *Requests* (what to call, with payloads and checks), *Test type* (how hard to push and what counts as a pass).
-- **Works with localhost.** PulseCheck runs on your computer, so it can test a site you are developing right now. **Test connection** shows what really answers at an address, so you don't test the wrong application by mistake.
-- **Authentication:** none, bearer token, API key, basic, or "log in first" (PulseCheck logs in and reuses the token).
+- **Works with localhost.** Pulsar runs on your computer, so it can test a site you are developing right now. **Test connection** shows what really answers at an address, so you don't test the wrong application by mistake.
+- **Authentication:** none, bearer token, API key, basic, or "log in first" (Pulsar logs in and reuses the token).
 - **Real payloads and data:** JSON bodies with built-in dynamic values (`{{$randomInt}}`, `{{$uuid}}`, ...), CSV or JSON test data, and values saved from one response and used in the next request.
 - **Checks that verify your data:** status codes, JSON fields, text in the body and response time.
 - **Pass or fail rules** (thresholds) you can edit, such as "p95 below 1000 ms and under 1% errors".
@@ -122,7 +122,7 @@ We believe quality engineering is moving toward tools that make good testing the
 
 ## See it in action
 
-Everything below is real: these screenshots and videos were recorded from PulseCheck testing the [sample API](#try-it-end-to-end-with-the-sample-api) included in this repo.
+Everything below is real: these screenshots and videos were recorded from Pulsar testing the [sample API](#try-it-end-to-end-with-the-sample-api) included in this repo.
 
 ### Start from a template, or build your own
 
@@ -166,7 +166,7 @@ Everything below is real: these screenshots and videos were recorded from PulseC
   <img src="docs/images/screenshots/result-passed.png" alt="A passed result with KPIs, charts, rules and checks" width="100%">
 </p>
 
-### When something fails, PulseCheck tells you why
+### When something fails, Pulsar tells you why
 
 A wrong or expired token, a path that does not exist, a rule that was missed: every failure comes with the reason, not just a red badge.
 
@@ -204,7 +204,7 @@ A run can also fail because the API is simply too slow. The dashed red line is t
 ## How it works (the basic flow)
 
 <p align="center">
-  <img src="docs/images/how-it-works.svg" alt="How PulseCheck works: your browser, the PulseCheck site, k6 and your API, with results saved on your computer" width="100%">
+  <img src="docs/images/how-it-works.svg" alt="How Pulsar works: your browser, the Pulsar site, k6 and your API, with results saved on your computer" width="100%">
 </p>
 
 <details>
@@ -214,7 +214,7 @@ A run can also fail because the API is simply too slow. The dashed red line is t
   You (browser)
       │  1. choose a template or build a test: address, auth, requests, test type
       ▼
-  PulseCheck site  (Next.js, http://localhost:3000)
+  Pulsar site  (Next.js, http://localhost:3000)
       │  2. validates the input and saves config.json (never the secrets)
       │  3. starts k6 with  tests/generic-runner.js
       ▼
@@ -251,8 +251,8 @@ On Windows with Winget: `winget install k6 --source winget`. On macOS with Homeb
 Get the code:
 
 ```bash
-git clone https://github.com/rony-codes/Pulse-Check.git
-cd Pulse-Check
+git clone https://github.com/Ihtisham-Khattak/api-pulse-check.git
+cd api-pulse-check
 ```
 
 ## Run the main site
@@ -305,7 +305,7 @@ The site only listens on `127.0.0.1`, so other computers on your network cannot 
    | Bearer token | You have a token to paste. Sent as `Authorization: Bearer <token>`. |
    | API key | Your API reads a key from a header such as `X-API-Key`. |
    | Basic | Username and password. |
-   | Log in first | Tokens expire. PulseCheck calls your login endpoint once and uses the token from the response. |
+   | Log in first | Tokens expire. Pulsar calls your login endpoint once and uses the token from the response. |
 
 3. **Step 2, Requests.** Add one request, or several that run in order:
    - **Method and path**, for example `POST` and `/api/orders`.
@@ -500,13 +500,13 @@ RUN_ID=manual PC_CONFIG_FILE=/absolute/path/to/config.json k6 run tests/generic-
 | `PORT` | the site | Port to listen on (default 3000) |
 | `BASE_URL` | command-line tests | API address (default `https://dummyjson.com`) |
 | `AUTH_USERNAME`, `AUTH_PASSWORD` | `test:auth` | Login for the auth test (defaults are DummyJSON's public demo user) |
-| `PULSECHECK_ROOT` | the site | Project folder, only if you start the site from somewhere else |
+| `PULSAR_ROOT` | the site | Project folder, only if you start the site from somewhere else |
 
 ## Project structure
 
 ```text
-Pulse-Check/
-├── web/                     The PulseCheck site (Next.js, React, TypeScript)
+api-pulse-check/
+├── web/                     The Pulsar site (Next.js, React, TypeScript)
 │   ├── app/                 Pages and the API routes (app/api/...)
 │   ├── components/          Screens and UI parts (wizard/, charts/)
 │   ├── lib/                 Shared logic: templates, presets, validation, draft saving
@@ -581,7 +581,7 @@ Workflow: `.github/workflows/performance.yml`.
 4. Verifies the generated reports.
 5. Uploads the reports as GitHub Actions artifacts (kept for seven days).
 
-It runs on push, on pull requests, and manually. [View GitHub Actions](https://github.com/rony-codes/Pulse-Check/actions)
+It runs on push, on pull requests, and manually. [View GitHub Actions](https://github.com/Ihtisham-Khattak/api-pulse-check/actions)
 
 ## Troubleshooting
 
@@ -642,7 +642,7 @@ These are ideas, not promises. They are good places to help. Open an issue to di
   <img src="docs/images/contribute.svg" alt="Built for QA engineers, with QA engineers: use it and report back, add a template, write code, improve the docs" width="100%">
 </p>
 
-**PulseCheck is built for quality assurance engineers, and it is better when QA engineers help build it.** You do not need to be a k6 or Next.js expert. Real testing experience is the most valuable thing you can bring: you know which checks matter, which errors are confusing, and which steps waste time.
+**Pulsar is built for quality assurance engineers, and it is better when QA engineers help build it.** You do not need to be a k6 or Next.js expert. Real testing experience is the most valuable thing you can bring: you know which checks matter, which errors are confusing, and which steps waste time.
 
 You can help in many ways:
 
@@ -694,7 +694,7 @@ Then open the site and try your change in a real browser: every screen it touche
 
 **Thank you for helping make quality assurance faster and easier for everyone.**
 
-## Status, license and author
+## Status and license
 
 | Component | Status |
 |---|---|
@@ -706,8 +706,6 @@ Then open the site and try your change in a real browser: every screen it touche
 
 **License:** a license has not been chosen yet. Until one is added to the repository, please open an issue to discuss reuse or large contributions.
 
-**Original author:** Rohan Kumar, Software Engineer | API Testing | Performance Engineering. GitHub: [@rony-codes](https://github.com/rony-codes)
-
 ---
 
-*PulseCheck: Measure. Analyze. Improve.*
+*Pulsar: Measure. Analyze. Improve.*

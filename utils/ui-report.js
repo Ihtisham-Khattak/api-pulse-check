@@ -8,7 +8,7 @@ function ms(v) {
 
 function shortSummary(data) {
     const m = data.metrics || {};
-    const lines = ['', 'PulseCheck summary'];
+    const lines = ['', 'Pulsar summary'];
     if (m.checks) lines.push(`  checks .......... ${(m.checks.values.rate * 100).toFixed(2)}%  (${m.checks.values.passes} passed, ${m.checks.values.fails} failed)`);
     if (m.http_reqs) lines.push(`  requests ........ ${m.http_reqs.values.count}  (${m.http_reqs.values.rate.toFixed(1)}/s)`);
     if (m.http_req_failed) lines.push(`  failed requests . ${(m.http_req_failed.values.rate * 100).toFixed(2)}%`);
@@ -28,7 +28,7 @@ function shortSummary(data) {
 export function buildUiReport(data) {
     const dir = 'reports/runs/' + (__ENV.RUN_ID || 'manual');
     return {
-        [dir + '/report.html']: htmlReport(data, { title: 'PulseCheck report' }),
+        [dir + '/report.html']: htmlReport(data, { title: 'Pulsar report' }),
         [dir + '/summary.json']: JSON.stringify(data, null, 2),
         stdout: shortSummary(data)
     };

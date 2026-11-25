@@ -21,7 +21,7 @@ export async function guard(fn: () => Promise<Response> | Response): Promise<Res
     return await fn();
   } catch (e) {
     if (e instanceof HttpError) return json({ error: e.message, code: e.code, details: e.details }, e.status);
-    console.error('[pulsecheck] unexpected error', e);
+    console.error('[pulsar] unexpected error', e);
     return json({ error: 'Something went wrong on the server.' }, 500);
   }
 }

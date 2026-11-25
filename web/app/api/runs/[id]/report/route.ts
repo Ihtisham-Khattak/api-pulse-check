@@ -17,7 +17,7 @@ export async function GET(req: Request, ctx: { params: Promise<{ id: string }> }
   const body = fs.readFileSync(file);
   return new Response(body, {
     headers: type === 'json'
-      ? { 'Content-Type': 'application/json', 'Content-Disposition': `attachment; filename="pulsecheck-${id}.json"` }
+      ? { 'Content-Type': 'application/json', 'Content-Disposition': `attachment; filename="pulsar-${id}.json"` }
       : { 'Content-Type': 'text/html; charset=utf-8' }
   });
 }

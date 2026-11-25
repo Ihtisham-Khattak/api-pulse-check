@@ -13,7 +13,7 @@ export const options = {
 
 export default function () {
     const payload = {
-        title: 'PulseCheck Test Product',
+        title: 'Pulsar Test Product',
         price: 99,
         category: 'software'
     };

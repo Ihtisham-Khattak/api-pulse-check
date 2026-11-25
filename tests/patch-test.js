@@ -13,7 +13,7 @@ export const options = {
 
 export default function () {
     const payload = {
-        title: 'PulseCheck Updated Title'
+        title: 'Pulsar Updated Title'
     };
 
     const response = patch(`${currentEnvironment.baseUrl}/products/1`, payload);

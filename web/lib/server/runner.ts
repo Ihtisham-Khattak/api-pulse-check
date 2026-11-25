@@ -41,8 +41,8 @@ interface ActiveRun {
 }
 
 // Kept on globalThis so hot reload in dev does not forget a running test.
-const g = globalThis as unknown as { __pulsecheck?: { active: ActiveRun | null; k6?: { at: number; info: HealthInfo['k6'] } } };
-const store = (g.__pulsecheck ??= { active: null });
+const g = globalThis as unknown as { __pulsar?: { active: ActiveRun | null; k6?: { at: number; info: HealthInfo['k6'] } } };
+const store = (g.__pulsar ??= { active: null });
 
 const MAX_LOG = 400;
 const MAX_SERIES = 3000;
@@ -68,9 +68,9 @@ export function listHistory(): RunMeta[] {
 function pushLog(run: ActiveRun, raw: string): void {
   const line = raw.replace(/\u001b\[[0-9;]*m/g, '').trimEnd();
   if (!line) return;
-  if (line.includes('[PulseCheck]') && run.problems.length < 6) {
+  if (line.includes('[Pulsar]') && run.problems.length < 6) {
     const m = /msg="((?:[^"\\]|\\.)*)"/.exec(line);
-    const text = (m ? m[1].replace(/\\"/g, '"') : line).replace(/^\[PulseCheck\]\s*/, '');
+    const text = (m ? m[1].replace(/\\"/g, '"') : line).replace(/^\[Pulsar\]\s*/, '');
     if (!run.problems.includes(text)) run.problems.push(text);
   }
   run.log.push(line);

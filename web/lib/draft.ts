@@ -10,7 +10,7 @@ import type { TestForm } from './form';
 
 export type StepNo = 1 | 2 | 3;
 
-const KEY = 'pulsecheck:draft:v1';
+const KEY = 'pulsar:draft:v1';
 
 interface DraftRecord {
   v: 1;
@@ -23,12 +23,12 @@ interface DraftRecord {
 }
 
 declare global {
-  interface Window { __pulsecheckBoot?: number }
+  interface Window { __pulsarBoot?: number }
 }
 
 /** Changes on every full page load, survives hot reload and in-app navigation. */
 export function bootId(): number {
-  return (window.__pulsecheckBoot ??= Date.now());
+  return (window.__pulsarBoot ??= Date.now());
 }
 
 export function stripSecrets(form: TestForm): TestForm {

@@ -1,5 +1,5 @@
 {
-  "name": "pulsecheck",
+  "name": "pulsar",
   "version": "1.0.0",
   "private": true,
   "description": "A reusable API performance testing framework built with k6",

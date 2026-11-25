@@ -1,8 +1,8 @@
 {
-  "name": "pulsecheck-web",
+  "name": "pulsar-web",
   "version": "0.1.0",
   "private": true,
-  "description": "PulseCheck web UI: choose a test, run it with k6, read the results",
+  "description": "Pulsar web UI: choose a test, run it with k6, read the results",
   "scripts": {
     "dev": "next dev -H 127.0.0.1",
     "build": "next build",

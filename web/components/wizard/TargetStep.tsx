@@ -89,7 +89,7 @@ export function TargetStep({ form, setForm }: StepProps) {
           </div>
           <div className="note">
             <Info size={17} aria-hidden="true" />
-            <span>PulseCheck runs k6 on <b>your computer</b>, so <span className="mono">localhost</span> means the site running here. Make sure your site is started before you run the test.</span>
+            <span>Pulsar runs k6 on <b>your computer</b>, so <span className="mono">localhost</span> means the site running here. Make sure your site is started before you run the test.</span>
           </div>
         </div>
       </section>
@@ -124,7 +124,7 @@ export function TargetStep({ form, setForm }: StepProps) {
 
           {a.type === 'login' && (
             <div className="stack">
-              <p className="muted small">Use this when tokens expire. PulseCheck calls your login endpoint once before the test and sends the token it gets back with every request.</p>
+              <p className="muted small">Use this when tokens expire. Pulsar calls your login endpoint once before the test and sends the token it gets back with every request.</p>
               <div className="row end">
                 <label className="field grow">Login path<input value={a.loginPath} onChange={(e) => setAuth({ loginPath: e.target.value })} spellCheck={false} placeholder="/auth/login" /></label>
                 <label className="field grow">Token location in the response<input value={a.tokenPath} onChange={(e) => setAuth({ tokenPath: e.target.value })} spellCheck={false} placeholder="$.accessToken" /></label>

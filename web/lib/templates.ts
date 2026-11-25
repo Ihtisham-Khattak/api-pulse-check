@@ -77,8 +77,8 @@ export const TEMPLATES: Template[] = [
     build: () => form('POST: create a product', 'smoke', [
       step({
         name: 'Create product', method: 'POST', path: '/products/add',
-        body: '{\n  "title": "PulseCheck Test Product",\n  "price": 99,\n  "category": "software"\n}',
-        checks: [status('201'), jsonEq('$.title', 'PulseCheck Test Product'), exists('$.id')]
+        body: '{\n  "title": "Pulsar Test Product",\n  "price": 99,\n  "category": "software"\n}',
+        checks: [status('201'), jsonEq('$.title', 'Pulsar Test Product'), exists('$.id')]
       })
     ])
   },
@@ -89,8 +89,8 @@ export const TEMPLATES: Template[] = [
     build: () => form('PUT: replace a product', 'smoke', [
       step({
         name: 'Replace product', method: 'PUT', path: '/products/1',
-        body: '{\n  "title": "PulseCheck Updated Product",\n  "price": 149\n}',
-        checks: [status('200'), jsonEq('$.title', 'PulseCheck Updated Product'), jsonEq('$.price', '149')]
+        body: '{\n  "title": "Pulsar Updated Product",\n  "price": 149\n}',
+        checks: [status('200'), jsonEq('$.title', 'Pulsar Updated Product'), jsonEq('$.price', '149')]
       })
     ])
   },
@@ -101,8 +101,8 @@ export const TEMPLATES: Template[] = [
     build: () => form('PATCH: update a field', 'smoke', [
       step({
         name: 'Update title', method: 'PATCH', path: '/products/1',
-        body: '{\n  "title": "PulseCheck Updated Title"\n}',
-        checks: [status('200'), jsonEq('$.title', 'PulseCheck Updated Title')]
+        body: '{\n  "title": "Pulsar Updated Title"\n}',
+        checks: [status('200'), jsonEq('$.title', 'Pulsar Updated Title')]
       })
     ])
   },
@@ -121,9 +121,9 @@ export const TEMPLATES: Template[] = [
     build: () => {
       const f = form('CRUD workflow', 'custom', [
         step({ name: 'Read', path: '/products/1', checks: [status('200')] }),
-        step({ name: 'Create', method: 'POST', path: '/products/add', body: '{\n  "title": "PulseCheck Test Product",\n  "price": 99\n}', checks: [status('201')] }),
-        step({ name: 'Replace', method: 'PUT', path: '/products/1', body: '{\n  "title": "PulseCheck Updated Product",\n  "price": 149\n}', checks: [status('200')] }),
-        step({ name: 'Update', method: 'PATCH', path: '/products/1', body: '{\n  "title": "PulseCheck Patched Product"\n}', checks: [status('200')] }),
+        step({ name: 'Create', method: 'POST', path: '/products/add', body: '{\n  "title": "Pulsar Test Product",\n  "price": 99\n}', checks: [status('201')] }),
+        step({ name: 'Replace', method: 'PUT', path: '/products/1', body: '{\n  "title": "Pulsar Updated Product",\n  "price": 149\n}', checks: [status('200')] }),
+        step({ name: 'Update', method: 'PATCH', path: '/products/1', body: '{\n  "title": "Pulsar Patched Product"\n}', checks: [status('200')] }),
         step({ name: 'Delete', method: 'DELETE', path: '/products/1', checks: [status('200'), jsonEq('$.isDeleted', 'true')] })
       ]);
       return {

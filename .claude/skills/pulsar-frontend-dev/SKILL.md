@@ -1,11 +1,11 @@
 ---
-name: pulsecheck-frontend-dev
-description: How to write frontend code for the PulseCheck web app in web/ (Next.js App Router, React, TypeScript): folder layout, component and state conventions, icons (lucide-react), CSS tokens, accessibility, data fetching and SSE, and how to verify the UI. Use whenever creating or editing files under web/ or porting the static preview in ui/.
+name: pulsar-frontend-dev
+description: How to write frontend code for the Pulsar web app in web/ (Next.js App Router, React, TypeScript): folder layout, component and state conventions, icons (lucide-react), CSS tokens, accessibility, data fetching and SSE, and how to verify the UI. Use whenever creating or editing files under web/ or porting the static preview in ui/.
 ---
 
-# PulseCheck frontend development
+# Pulsar frontend development
 
-The app lives in `web/` (its own `package.json`; the repo root stays dependency-free so the k6 scripts keep working). Screens and flow are described in the `pulsecheck-ui-nextjs` skill; server rules are in `pulsecheck-run-engine`. This skill covers *how to write the code*.
+The app lives in `web/` (its own `package.json`; the repo root stays dependency-free so the k6 scripts keep working). Screens and flow are described in the `pulsar-ui-nextjs` skill; server rules are in `pulsar-run-engine`. This skill covers *how to write the code*.
 
 ## Stack and dependencies
 
@@ -42,7 +42,7 @@ Rules: `lib/types.ts` and `lib/validate.ts` are shared by client and server and 
 
 ## Styling
 
-- Colours, radii, shadows and spacing are CSS custom properties on `:root` (brand tokens, see the `pulsecheck-ui-nextjs` skill); dark mode redefines them under `@media (prefers-color-scheme: dark)` guarded by `:root:not([data-theme="light"])` and again under `:root[data-theme="dark"]`. Components never hardcode a colour.
+- Colours, radii, shadows and spacing are CSS custom properties on `:root` (brand tokens, see the `pulsar-ui-nextjs` skill); dark mode redefines them under `@media (prefers-color-scheme: dark)` guarded by `:root:not([data-theme="light"])` and again under `:root[data-theme="dark"]`. Components never hardcode a colour.
 - Class names are lowercase kebab-case, grouped by component (`.kpi`, `.kpi-label`). Utility classes are only `.row`, `.stack`, `.muted`, `.mono`, `.num`.
 - Layout: mobile first, 16 px gutter, no horizontal page scroll at 390 px. A grid column that can hold a table uses `minmax(0, 1fr)`. Tables sit in `.table-wrap` (`overflow-x: auto`).
 - Numbers use `font-variant-numeric: tabular-nums`. Respect `prefers-reduced-motion`.

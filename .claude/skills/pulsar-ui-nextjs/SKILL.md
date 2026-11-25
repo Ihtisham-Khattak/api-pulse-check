@@ -1,11 +1,11 @@
 ---
-name: pulsecheck-ui-nextjs
-description: Screens, flow, design tokens and component rules for the PulseCheck web UI (Next.js App Router). Use when creating or changing any UI page or component, or when porting the static preview in ui/ to Next.js.
+name: pulsar-ui-nextjs
+description: Screens, flow, design tokens and component rules for the Pulsar web UI (Next.js App Router). Use when creating or changing any UI page or component, or when porting the static preview in ui/ to Next.js.
 ---
 
-# PulseCheck web UI (Next.js)
+# Pulsar web UI (Next.js)
 
-Status: the static, simulated preview in `ui/` (`index.html`, `styles.css`, `app.js`) is the visual spec. The real app is a Next.js (App Router) rewrite of the same screens, wired to the run engine (see the `pulsecheck-run-engine` skill). Keep dependencies minimal: React, Next.js, TypeScript. No component library unless the user asks. Charts are small hand-written SVG (see `lineChart` in `ui/app.js`) or one light library.
+Status: the static, simulated preview in `ui/` (`index.html`, `styles.css`, `app.js`) is the visual spec. The real app is a Next.js (App Router) rewrite of the same screens, wired to the run engine (see the `pulsar-run-engine` skill). Keep dependencies minimal: React, Next.js, TypeScript. No component library unless the user asks. Charts are small hand-written SVG (see `lineChart` in `ui/app.js`) or one light library.
 
 ## Primary flow: "New test" in three steps
 
@@ -22,7 +22,7 @@ The 12 built-in DummyJSON tests are **templates**: clicking one pre-fills the th
 | Route | Content |
 |---|---|
 | `/` | Templates grouped Quick / Workflow / Performance, plus "New test" |
-| `/new` | The three-step flow with a sticky run summary and a "What PulseCheck hands to k6" JSON panel |
+| `/new` | The three-step flow with a sticky run summary and a "What Pulsar hands to k6" JSON panel |
 | `/scenario` | Scenario builder |
 | `/runs/[id]` | Live view (progress, VUs, req/s, p95, errors, chart, k6 output, Stop), then the result |
 | `/history` | Past runs; tick two to compare (show change as text and arrow, not colour alone) |

@@ -261,7 +261,7 @@ export function NewTest({ templateId, fromId }: NewTestProps) {
             </p>
 
             <details style={{ marginTop: 16 }}>
-              <summary><ChevronRight size={15} className="chev" aria-hidden="true" /> What PulseCheck sends to k6</summary>
+              <summary><ChevronRight size={15} className="chev" aria-hidden="true" /> What Pulsar sends to k6</summary>
               <pre className="json">{JSON.stringify({ ...request.config, secrets: maskedSecrets }, null, 2)}</pre>
             </details>
           </div>

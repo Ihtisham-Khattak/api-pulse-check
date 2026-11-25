@@ -1,4 +1,4 @@
-// A tiny API you can run locally to try PulseCheck end to end. No dependencies.
+// A tiny API you can run locally to try Pulsar end to end. No dependencies.
 //
 //   node examples/sample-api.mjs            (listens on http://localhost:4010)
 //   PORT=5001 node examples/sample-api.mjs  (another port)
@@ -35,7 +35,7 @@ const server = http.createServer((req, res) => {
     };
 
     if (req.url === '/') {
-      return send(200, { name: 'PulseCheck sample API', endpoints: ['POST /api/login', 'POST /api/orders', 'GET /api/orders/:id'], token: TOKEN });
+      return send(200, { name: 'Pulsar sample API', endpoints: ['POST /api/login', 'POST /api/orders', 'GET /api/orders/:id'], token: TOKEN });
     }
     if (req.url === '/health') return send(200, { ok: true });
 
