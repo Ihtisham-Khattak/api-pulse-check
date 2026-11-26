@@ -33,7 +33,7 @@ export function LineChart({ series, label, xMax, yFmt, limit, height = 230 }: Li
   useEffect(() => {
     const el = host.current;
     if (!el) return;
-    const update = () => setWidth(Math.max(280, Math.round(el.clientWidth)));
+    const update = () => setWidth(Math.max(240, Math.round(el.clientWidth)));
     update();
     const ro = new ResizeObserver(update);
     ro.observe(el);
@@ -48,6 +48,9 @@ export function LineChart({ series, label, xMax, yFmt, limit, height = 230 }: Li
   let top = Math.max(1, ...all.map((p) => p.y));
   if (limit) top = Math.max(top, limit.y * 1.15);
   const maxY = niceMax(top);
+  // Five steps for 5, 50, 500 so counts of users stay whole numbers.
+  const ySteps = maxY / Math.pow(10, Math.floor(Math.log10(maxY))) === 5 ? 5 : 4;
+  const xSteps = width < 440 ? 2 : 4;
   const fmtY = yFmt ?? ((v: number) => (maxY <= 5 && !Number.isInteger(v) ? v.toFixed(1) : String(Math.round(v))));
   const X = (x: number) => m.l + (x / maxX) * iw;
   const Y = (y: number) => m.t + ih - (y / maxY) * ih;
@@ -56,8 +59,8 @@ export function LineChart({ series, label, xMax, yFmt, limit, height = 230 }: Li
     <div className="chart" ref={host}>
       <svg viewBox={`0 0 ${width} ${height}`} role="img" aria-label={label}>
         <g className="grid">
-          {[0, 1, 2, 3, 4].map((i) => {
-            const y = (maxY / 4) * i;
+          {Array.from({ length: ySteps + 1 }, (_, i) => {
+            const y = (maxY / ySteps) * i;
             return (
               <g key={i}>
                 <line x1={m.l} x2={width - m.r} y1={Y(y)} y2={Y(y)} />
@@ -66,9 +69,9 @@ export function LineChart({ series, label, xMax, yFmt, limit, height = 230 }: Li
             );
           })}
         </g>
-        {[0, 1, 2, 3, 4].map((i) => (
-          <text key={i} x={X((maxX / 4) * i)} y={height - 8} textAnchor={i === 0 ? 'start' : i === 4 ? 'end' : 'middle'}>
-            {fmtDur((maxX / 4) * i)}
+        {Array.from({ length: xSteps + 1 }, (_, i) => (
+          <text key={i} x={X((maxX / xSteps) * i)} y={height - 8} textAnchor={i === 0 ? 'start' : i === xSteps ? 'end' : 'middle'}>
+            {fmtDur((maxX / xSteps) * i)}
           </text>
         ))}
         {series.map((s, i) => {

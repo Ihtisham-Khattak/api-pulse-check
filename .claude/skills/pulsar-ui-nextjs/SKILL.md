@@ -31,11 +31,15 @@ Result page: verdict banner (PASSED / FAILED / STOPPED with the reason), KPI car
 
 ## Design rules (the brand design system: green, white and black)
 
-- **Palette:** green, white and black in a 60/30/10 balance. Tokens: `forest #0B5D3B` (primary), `emerald #0D7D4D`, `mint #3DDC84` (accent, 10%), `mint-tint #E7F6EE`, `black #0A0F0C`, `surface-alt #F6F8F7`, `ink-muted #56615B`, `line #DCE3DF`, `danger #C62828`, `warning #A15C00`. Dark theme: surface `#0A0F0C`, surface-alt `#161D19`, ink `#F2F5F3`, primary becomes mint. All defined in `app/globals.css`; components use the variables only.
-- **Never** put mint text on white or white text on mint. Success text is forest on mint-tint. No gradients, no emoji cards, no left-border cards. Prefer a 1px `line` border to shadows.
-- **Fonts (self-hosted in `public/fonts/`):** Space Grotesk for headings and numbers, Inter for UI and body, JetBrains Mono for paths, code and logs. Do not load fonts from a CDN.
-- **Radii:** 4px inputs and chips, 8px buttons and cards, 16px hero and dialogs, pill for badges. Spacing on a 4px base.
-- **Layout:** the sidebar is always a dark brand section (black). Hero is a flat forest band with a mint pulse line. Icon tiles use tones `green | ink | amber | red | grey`.
+Character: exact, calm, instrument-like. Quiet chrome; the verdict and the charts are what stand out.
+
+- **Palette:** neutrals plus one accent. `forest #0B5D3B` is the primary in light, `mint #3DDC84` in dark and in the sidebar. Red and amber carry meaning only. All tokens are in `app/globals.css`; components use the variables only. Never put mint text on white or white text on mint.
+- **Surfaces:** page `--bg`, containers `--card` with a 1px `--border` hairline. No gradients, no shadows (dialogs excepted), no hero bands, no decorative art, no icon tiles.
+- **Type (self-hosted in `public/fonts/`):** Space Grotesk for headings, Inter for UI and body, JetBrains Mono for figures, paths, code and logs. Weights 400, 500, 600 only. Sentence case; no uppercase tracked labels or eyebrows.
+- **Spacing and shape:** 4px grid, no inline spacing values (use `.stack`, `.stack-lg`, `.sect`). Radii: 4 tags, 8 controls, 12 containers, 16 dialogs. Controls are 36px tall, 44px on touch.
+- **Figures** always use the `Readout` strip with `Kpi` cells.
+- **Tables** that can get narrow use `.table-wrap.stackable` with a `.cell-label` in each cell, so rows stack instead of scrolling sideways.
+- **Layout:** the sidebar is always dark. On narrow screens it becomes a top bar with three equal nav tabs.
 - **Status is never colour alone:** pair every colour with an icon and a word (`CircleCheck` Passed, `CircleX` Failed, `OctagonX` Stopped, `TriangleAlert` Error).
 - Responsive down to 390 px with a 16 px gutter and no horizontal page scroll. Grid columns that hold tables use `minmax(0, 1fr)`, and `.table-wrap` is `position: relative` so hidden labels cannot widen the page.
 - Visible focus ring (`--focus-ring`), native `<dialog>` for confirmations, toasts use `role="status"`, secret inputs are `type="password"` with a Show toggle.

@@ -1,14 +1,12 @@
-import type { LucideIcon } from 'lucide-react';
+import { TriangleAlert, type LucideIcon } from 'lucide-react';
 import type { ReactNode } from 'react';
 import { STATUS_ICON, STATUS_LABEL } from '@/lib/icons';
 import type { RunStatus } from '@/lib/types';
 
-export type Tone = 'green' | 'ink' | 'amber' | 'red' | 'grey';
-
-export function IconBadge({ icon: Icon, tone, small }: { icon: LucideIcon; tone: Tone; small?: boolean }) {
+export function IconBadge({ icon: Icon }: { icon: LucideIcon }) {
   return (
-    <span className={`ibadge tone-${tone}${small ? ' sm' : ''}`} aria-hidden="true">
-      <Icon size={small ? 17 : 21} strokeWidth={2} />
+    <span className="ibadge" aria-hidden="true">
+      <Icon size={18} strokeWidth={1.75} />
     </span>
   );
 }
@@ -26,15 +24,21 @@ export function StatusBadge({ status }: { status: RunStatus }) {
   );
 }
 
-export function Kpi({ icon, tone, label, value, sub }: { icon: LucideIcon; tone: Tone; label: string; value: ReactNode; sub?: string }) {
+/** Figures sit together in one hairline-divided strip. */
+export function Readout({ children, count }: { children: ReactNode; count: 3 | 5 | 6 }) {
   return (
-    <div className="kpi">
-      <IconBadge icon={icon} tone={tone} small />
-      <div>
-        <div className="l">{label}</div>
-        <div className="v">{value}</div>
-        {sub && <div className="s">{sub}</div>}
-      </div>
+    <div className="readout">
+      <div className="kpis" data-n={count}>{children}</div>
+    </div>
+  );
+}
+
+export function Kpi({ label, value, sub, bad }: { label: string; value: ReactNode; sub?: string; bad?: boolean }) {
+  return (
+    <div className={`kpi${bad ? ' bad' : ''}`}>
+      <div className="l">{bad && <TriangleAlert size={13} aria-label="Needs attention" />}{label}</div>
+      <div className="v">{value}</div>
+      {sub && <div className="s">{sub}</div>}
     </div>
   );
 }
@@ -59,7 +63,7 @@ export function Segmented<T extends string>({ value, options, onChange, label }:
 export function EmptyState({ icon: Icon, title, children }: { icon: LucideIcon; title: string; children?: ReactNode }) {
   return (
     <div className="empty">
-      <IconBadge icon={Icon} tone="ink" />
+      <IconBadge icon={Icon} />
       <h2>{title}</h2>
       {children}
     </div>

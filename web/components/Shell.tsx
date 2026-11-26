@@ -50,11 +50,9 @@ export function Shell({ children }: { children: ReactNode }) {
     <div className="shell">
       <aside className="sidebar">
         <Link href="/" className="brand" aria-label="Pulsar home">
-          <span className="brand-mark" aria-hidden="true">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/logo-mark.svg" width={36} height={36} alt="" />
-          </span>
-          <span>Pulsar<small>Performance testing</small></span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/logo-mark.svg" width={32} height={32} alt="" />
+          <span>Pulsar</span>
         </Link>
 
         <nav className="nav" aria-label="Main">
@@ -78,7 +76,7 @@ export function Shell({ children }: { children: ReactNode }) {
         <div className="sidebar-foot">
           <div className="k6-status" role="status">
             <span className={`dot ${offline || (health && !k6Ok) ? 'bad' : k6Ok ? 'ok' : ''}`} aria-hidden="true" />
-            <span><span className="label-long">{statusText}</span></span>
+            <span className="label-long">{statusText}</span>
           </div>
           <button className="btn sm" type="button" onClick={toggleTheme} aria-label={dark ? 'Switch to light theme' : 'Switch to dark theme'}>
             {dark ? <Sun size={16} aria-hidden="true" /> : <Moon size={16} aria-hidden="true" />}

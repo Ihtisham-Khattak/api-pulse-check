@@ -1,13 +1,11 @@
-import { ArrowRight, Clock, Flame, History, Rocket } from 'lucide-react';
+import { ArrowRight, Clock, History, Plus, TriangleAlert } from 'lucide-react';
 import Link from 'next/link';
 import { HomeStats } from '@/components/HomeStats';
-import { IconBadge, type Tone } from '@/components/ui';
+import { IconBadge } from '@/components/ui';
 import { buildRequest } from '@/lib/form';
 import { estimateRun, fmtDur, isHeavy } from '@/lib/format';
 import { TEMPLATE_ICONS } from '@/lib/icons';
-import { CATEGORIES, TEMPLATES, type TemplateCategory } from '@/lib/templates';
-
-const TONE: Record<TemplateCategory, Tone> = { quick: 'green', workflow: 'ink', performance: 'amber' };
+import { CATEGORIES, TEMPLATES } from '@/lib/templates';
 
 export default function HomePage() {
   const cards = TEMPLATES.map((t) => {
@@ -17,55 +15,51 @@ export default function HomePage() {
 
   return (
     <>
-      <section className="hero" aria-labelledby="hero-h">
-        <svg className="hero-pulse" viewBox="0 0 420 120" fill="none" aria-hidden="true">
-          <path d="M0 78h120l28-58 44 98 34-66 24 26h170" stroke="#3ddc84" strokeWidth="6" strokeLinecap="square" strokeLinejoin="miter" />
-        </svg>
-        <div className="eyebrow"><Flame size={14} aria-hidden="true" /> Powered by k6</div>
-        <h1 id="hero-h">Know how your API behaves under pressure</h1>
-        <p>Point Pulsar at any API, including one running on localhost. Pick a test type, send real requests with your own data and token, and read clear results in seconds.</p>
-        <div className="row" style={{ marginTop: 22 }}>
-          <Link href="/new" className="btn light"><Rocket size={17} aria-hidden="true" /> New test</Link>
-          <Link href="/history" className="btn outline"><History size={17} aria-hidden="true" /> View history</Link>
+      <div className="page-head">
+        <div>
+          <h1>Know how your API behaves under pressure</h1>
+          <p>Point Pulsar at any API, including one running on localhost. Pick a test type, send real requests with your own data and token, and read clear results in seconds.</p>
         </div>
-      </section>
+        <div className="row snug">
+          <Link href="/history" className="btn"><History size={16} aria-hidden="true" /> View history</Link>
+          <Link href="/new" className="btn primary"><Plus size={16} aria-hidden="true" /> New test</Link>
+        </div>
+      </div>
 
       <HomeStats />
 
-      <div className="group" style={{ marginTop: 40 }}>
-        <h2 style={{ marginBottom: 4 }}>Start from a template</h2>
-        <p className="muted small">Each one fills in the three steps for you. Change anything before you run, or point it at your own API.</p>
-      </div>
+      <section className="group" aria-labelledby="tpl-h">
+        <div className="sect">
+          <h2 id="tpl-h">Start from a template</h2>
+          <p>Each one fills in the three steps for you. Change anything before you run, or point it at your own API.</p>
+        </div>
 
-      {CATEGORIES.map((cat) => (
-        <section className="group" key={cat.id} aria-labelledby={`cat-${cat.id}`} style={{ marginTop: 26 }}>
-          <div className="group-head">
-            <h2 id={`cat-${cat.id}`} style={{ fontSize: 16 }}>{cat.title}</h2>
-            <span className="muted small">{cat.blurb}</span>
-          </div>
-          <div className="cards">
-            {cards.filter((c) => c.t.category === cat.id).map(({ t, secs, heavy }) => (
-              <Link key={t.id} href={`/new?template=${t.id}`} className="tcard">
-                <div className="top">
-                  <IconBadge icon={TEMPLATE_ICONS[t.icon]} tone={TONE[t.category]} />
-                  <div className="grow">
+        {CATEGORIES.map((cat) => (
+          <section className="subgroup" key={cat.id} aria-labelledby={`cat-${cat.id}`}>
+            <div className="group-head">
+              <h3 id={`cat-${cat.id}`}>{cat.title}</h3>
+              <span className="muted small">{cat.blurb}</span>
+            </div>
+            <div className="cards">
+              {cards.filter((c) => c.t.category === cat.id).map(({ t, secs, heavy }) => (
+                <Link key={t.id} href={`/new?template=${t.id}`} className="tcard">
+                  <div className="top">
+                    <IconBadge icon={TEMPLATE_ICONS[t.icon]} />
                     <h3>{t.name}</h3>
-                    <span className="mono muted small">{t.summary}</span>
+                    <ArrowRight size={16} className="arrow" aria-hidden="true" />
                   </div>
-                </div>
-                <p>{t.description}</p>
-                <div className="meta">
-                  <span className="row" style={{ gap: 12 }}>
-                    <span className="row" style={{ gap: 5 }}><Clock size={14} aria-hidden="true" /> {secs < 1 ? 'Under 1s' : `About ${fmtDur(secs)}`}</span>
-                    {heavy && <span className="badge warn">Heavy</span>}
-                  </span>
-                  <span className="go">Use template <ArrowRight size={15} aria-hidden="true" /></span>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </section>
-      ))}
+                  <span className="path" title={t.summary}>{t.summary}</span>
+                  <p>{t.description}</p>
+                  <div className="meta">
+                    <span><Clock size={13} aria-hidden="true" /> {secs < 1 ? 'Under 1s' : `About ${fmtDur(secs)}`}</span>
+                    {heavy && <span className="heavy"><TriangleAlert size={13} aria-hidden="true" /> Heavy</span>}
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </section>
+        ))}
+      </section>
     </>
   );
 }

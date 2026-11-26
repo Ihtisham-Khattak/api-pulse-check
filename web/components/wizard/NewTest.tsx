@@ -175,22 +175,21 @@ export function NewTest({ templateId, fromId }: NewTestProps) {
     <>
       <div className="page-head">
         <div>
-          <div className="eyebrow"><Play size={14} aria-hidden="true" /> New test</div>
           <h1>{template ? template.name : 'Build a test'}</h1>
-          <p className="muted">{template ? 'Template loaded. Edit anything, or run it as it is.' : 'Three steps: where your API is, what to call, and how hard to push.'}</p>
+          <p>{template ? 'Template loaded. Edit anything, or run it as it is.' : 'Three steps: where your API is, what to call, and how hard to push.'}</p>
         </div>
         <button type="button" className="btn ghost" onClick={startOver} disabled={!ready}><RotateCcw size={16} aria-hidden="true" /> Start over</button>
       </div>
 
       {secretsNote && (
-        <div className="note warn" style={{ marginBottom: 16 }} role="status">
+        <div className="note warn sect" role="status">
           <Info size={17} aria-hidden="true" />
           <span>Your entries were kept after the refresh, except <b>tokens, keys and passwords</b>. Those are never stored, so enter them again in step 1 if your API needs them.</span>
         </div>
       )}
 
       {restoredNote && (
-        <div className="note" style={{ marginBottom: 16 }}>
+        <div className="note sect">
           <Info size={17} aria-hidden="true" />
           <span>Settings loaded from a previous run. Tokens and passwords are never saved, so enter them again if your API needs them.</span>
         </div>
@@ -215,7 +214,7 @@ export function NewTest({ templateId, fromId }: NewTestProps) {
               {step === 2 && <RequestsStep form={form} setForm={setForm} selId={selStepId} setSelId={setSelStepId} />}
               {step === 3 && <TypeStep form={form} setForm={setForm} />}
 
-              <div className="row between" style={{ marginTop: 20 }}>
+              <div className="row between wizard-nav">
                 <button type="button" className="btn" onClick={() => goStep(Math.max(1, step - 1) as StepNo)} disabled={step === 1}><ArrowLeft size={16} aria-hidden="true" /> Back</button>
                 {step < 3
                   ? <button type="button" className="btn primary" onClick={() => goStep(Math.min(3, step + 1) as StepNo)}>Next <ArrowRight size={16} aria-hidden="true" /></button>
@@ -232,35 +231,35 @@ export function NewTest({ templateId, fromId }: NewTestProps) {
               <dt>Target</dt><dd className="mono">{request.config.baseUrl.replace(/^https?:\/\//, '') || '-'}</dd>
               <dt>Requests</dt><dd>{request.config.steps.length} per iteration</dd>
               <dt>Auth</dt><dd>{{ none: 'None', bearer: 'Bearer token', apikey: 'API key', basic: 'Basic', login: 'Log in first' }[request.config.auth.type]}</dd>
-              <dt>Test type</dt><dd style={{ textTransform: 'capitalize' }}>{request.config.testType}</dd>
+              <dt>Test type</dt><dd className="cap">{request.config.testType}</dd>
               <dt>Duration</dt><dd>{est.secs < 1 ? 'Under 1s' : `About ${fmtDur(est.secs)}`}</dd>
               <dt>Peak users</dt><dd>{est.peakVus}</dd>
               <dt>Approx. requests</dt><dd>{Math.round(est.approxRequests).toLocaleString('en-US')}</dd>
               <dt>Rules</dt><dd>{request.config.thresholds.length}</dd>
             </dl>
 
-            {heavy && <div className="note warn" style={{ marginTop: 14 }}><Info size={17} aria-hidden="true" /><span>Heavy test. Run it only against an API you own or may test.</span></div>}
+            {heavy && <div className="note warn aside-block"><Info size={17} aria-hidden="true" /><span>Heavy test. Run it only against an API you own or may test.</span></div>}
 
             {(errors.length > 0 || serverErrors.length > 0) && (
-              <div className="note bad" style={{ marginTop: 14 }} role="alert">
+              <div className="note bad aside-block" role="alert">
                 <CircleAlert size={17} aria-hidden="true" />
                 <div>
                   <b>Fix before running</b>
-                  <ul style={{ margin: '6px 0 0', paddingLeft: 18 }}>{(errors.length ? errors : serverErrors).map((e) => (<li key={e}>{e}</li>))}</ul>
+                  <ul>{(errors.length ? errors : serverErrors).map((e) => (<li key={e}>{e}</li>))}</ul>
                 </div>
               </div>
             )}
 
-            <button type="button" className="btn primary block" style={{ marginTop: 16 }} onClick={run} disabled={starting || !validation.ok || !ready}>
+            <button type="button" className={`btn primary block aside-block run-aside${step === 3 && ready ? ' last-step' : ''}`} onClick={run} disabled={starting || !validation.ok || !ready}>
               {starting ? <LoaderCircle size={16} className="spin" aria-hidden="true" /> : <Play size={16} aria-hidden="true" />} Run test
             </button>
 
-            <p className="hint" style={{ marginTop: 14, display: 'flex', gap: 6, alignItems: 'flex-start' }}>
-              <Save size={14} aria-hidden="true" style={{ flex: 'none', marginTop: 2 }} />
+            <p className="hint aside-hint">
+              <Save size={14} aria-hidden="true" />
               <span>Your entries are kept in this browser tab, so you can move between steps or refresh the page. Tokens and passwords are the exception: they are never stored.</span>
             </p>
 
-            <details style={{ marginTop: 16 }}>
+            <details className="aside-block">
               <summary><ChevronRight size={15} className="chev" aria-hidden="true" /> What Pulsar sends to k6</summary>
               <pre className="json">{JSON.stringify({ ...request.config, secrets: maskedSecrets }, null, 2)}</pre>
             </details>

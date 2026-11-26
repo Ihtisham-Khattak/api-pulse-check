@@ -4,7 +4,7 @@ import { Ban, CircleCheck, CircleX, Globe, Info, KeyRound, LoaderCircle, Lock, L
 import { useEffect, useState } from 'react';
 import { api } from '@/lib/api';
 import type { AuthType, ProbeResult } from '@/lib/types';
-import { IconBadge, Segmented } from '../ui';
+import { Segmented } from '../ui';
 import { HeaderTable, SecretInput, type StepProps } from './shared';
 
 const AUTH_OPTIONS: { value: AuthType; label: string; icon: LucideIcon }[] = [
@@ -50,9 +50,9 @@ export function TargetStep({ form, setForm }: StepProps) {
   return (
     <div className="stack">
       <section className="card" aria-labelledby="t-target">
-        <div className="row" style={{ marginBottom: 16 }}>
-          <IconBadge icon={Globe} tone="grey" />
-          <div><h2 id="t-target">Where is your API?</h2><p className="muted small">Any address works, including a site running on this computer.</p></div>
+        <div className="sect">
+          <h2 id="t-target">Where is your API?</h2>
+          <p>Any address works, including a site running on this computer.</p>
         </div>
         <div className="stack">
           <label className="field">Test name
@@ -81,8 +81,8 @@ export function TargetStep({ form, setForm }: StepProps) {
                   </div>
             )}
           </div>
-          <div>
-            <div className="muted small" style={{ marginBottom: 6 }}>Quick pick</div>
+          <div className="stack-sm">
+            <div className="hint">Quick pick</div>
             <div className="chips">
               {QUICK_URLS.map((q) => (<button key={q.url} type="button" className="chip" onClick={() => setForm((f) => ({ ...f, baseUrl: q.url }))}>{q.label}</button>))}
             </div>
@@ -95,9 +95,9 @@ export function TargetStep({ form, setForm }: StepProps) {
       </section>
 
       <section className="card" aria-labelledby="t-auth">
-        <div className="row" style={{ marginBottom: 16 }}>
-          <IconBadge icon={KeyRound} tone="grey" />
-          <div><h2 id="t-auth">Authentication</h2><p className="muted small">How does your API know who is calling?</p></div>
+        <div className="sect">
+          <h2 id="t-auth">Authentication</h2>
+          <p>How does your API know who is calling?</p>
         </div>
         <div className="stack">
           <Segmented<AuthType> label="Authentication type" value={a.type} options={AUTH_OPTIONS} onChange={(type) => setAuth({ type })} />
@@ -110,7 +110,7 @@ export function TargetStep({ form, setForm }: StepProps) {
 
           {a.type === 'apikey' && (
             <div className="row end">
-              <label className="field" style={{ width: 220 }}>Header name<input value={a.headerName} onChange={(e) => setAuth({ headerName: e.target.value })} spellCheck={false} /></label>
+              <label className="field w-md">Header name<input value={a.headerName} onChange={(e) => setAuth({ headerName: e.target.value })} spellCheck={false} /></label>
               <div className="grow"><SecretInput label="Key" value={a.apiKey} onChange={(apiKey) => setAuth({ apiKey })} /></div>
             </div>
           )}
@@ -150,8 +150,10 @@ export function TargetStep({ form, setForm }: StepProps) {
       </section>
 
       <section className="card" aria-labelledby="t-headers">
-        <h2 id="t-headers">Headers for every request</h2>
-        <p className="muted small" style={{ margin: '4px 0 14px' }}>Optional. For example a tenant id or a custom version header.</p>
+        <div className="sect">
+          <h2 id="t-headers">Headers for every request</h2>
+          <p>Optional. For example a tenant id or a custom version header.</p>
+        </div>
         <HeaderTable rows={form.headers} onChange={(headers) => setForm((f) => ({ ...f, headers }))} label="Header" />
       </section>
     </div>

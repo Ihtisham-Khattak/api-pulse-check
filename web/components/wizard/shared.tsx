@@ -15,16 +15,16 @@ export function HeaderTable({ rows, onChange, label }: { rows: HeaderRow[]; onCh
   return (
     <div className="stack-sm">
       {rows.length > 0 && (
-        <div className="table-wrap">
+        <div className="table-wrap stackable">
           <table>
             <thead><tr><th>Name</th><th>Value</th><th>On</th><th><span className="sr-only">Remove</span></th></tr></thead>
             <tbody>
               {rows.map((r) => (
                 <tr key={r.id}>
-                  <td><input value={r.k} onChange={(e) => patch(r.id, { k: e.target.value })} aria-label={`${label} name`} spellCheck={false} placeholder="Header-Name" /></td>
-                  <td><input value={r.v} onChange={(e) => patch(r.id, { v: e.target.value })} aria-label={`${label} value`} spellCheck={false} placeholder="value" /></td>
-                  <td><input type="checkbox" checked={r.on} onChange={(e) => patch(r.id, { on: e.target.checked })} aria-label={`${label} enabled`} /></td>
-                  <td><button type="button" className="btn ghost icon" onClick={() => onChange(rows.filter((x) => x.id !== r.id))} aria-label={`Remove ${label}`}><Trash2 size={16} aria-hidden="true" /></button></td>
+                  <td className="full"><span className="cell-label">Name</span><input value={r.k} onChange={(e) => patch(r.id, { k: e.target.value })} aria-label={`${label} name`} spellCheck={false} placeholder="Header-Name" /></td>
+                  <td className="full"><span className="cell-label">Value</span><input value={r.v} onChange={(e) => patch(r.id, { v: e.target.value })} aria-label={`${label} value`} spellCheck={false} placeholder="value" /></td>
+                  <td className="fit"><span className="cell-label">On</span><input type="checkbox" checked={r.on} onChange={(e) => patch(r.id, { on: e.target.checked })} aria-label={`${label} enabled`} /></td>
+                  <td className="action fit"><button type="button" className="btn ghost icon" onClick={() => onChange(rows.filter((x) => x.id !== r.id))} aria-label={`Remove ${label}`}><Trash2 size={16} aria-hidden="true" /></button></td>
                 </tr>
               ))}
             </tbody>
@@ -43,7 +43,7 @@ export function SecretInput({ value, onChange, label, placeholder }: { value: st
     <label className="field">
       {label}
       <span className="input-wrap">
-        <input type={shown ? 'text' : 'password'} value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder} autoComplete="off" spellCheck={false} style={{ paddingRight: 44 }} />
+        <input type={shown ? 'text' : 'password'} value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder} autoComplete="off" spellCheck={false} className="has-trail" />
         <button type="button" className="btn ghost icon trail" onClick={() => setShown((s) => !s)} aria-label={shown ? `Hide ${label}` : `Show ${label}`}>
           {shown ? <EyeOff size={16} aria-hidden="true" /> : <Eye size={16} aria-hidden="true" />}
         </button>
